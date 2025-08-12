@@ -1,23 +1,22 @@
-#include <TXLib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
 
-#define EPSILON 1e-7 //используется c fabs вместо discriminant == 0
+#define EPSILON 1e-7 //using with fabs instead discriminant == 0
 
 
 
-/*ВОПРОСЫ:
-  1. ввод-вывод должен осуществляться через консоль или через файлы?
-  2. корни в комплексных числах находить не надо же?))
+/*Questions:
+!!! 1. How to make comments in Russian display correctly on github?  !!!
+    2. How should input/output be released? (console/files)
+    3. I don't need to find roots in complex numbers, do I?))
 */
 
-/*В ПЛАНАХ:
-1. Сделать так, чтобы запись "x^2" воспринималась как a = 1, а не a = 0
-2. Сделать зацикливание программы, чтобы можно было решать уравнения до написания команды выхода
-3. Сделать обработку ошибок пользователя
-4. Обработать случай, когда в правой части уравнения находится число, отличное от нуля
+/*Plans:
+1. Make the entry "x^2" be interpreted as a = 1 instead of a = 0
+2. Make the program loop so that user can solve equations before writing the exit command like "quit" or "q"
+3. Do user error handling
 */
 
 
@@ -26,14 +25,26 @@ int main()
     void get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
     float make_discriminant(float a, float b, float c);
     void make_roots(float *ptr_x1, float *ptr_x2, float a, float b, float discriminant);
+    void clear_input_stream(void);
 
-
-    float a, b, c;
+    float a, b, c, right_part;
     float discriminant;
     float x1, x2;
+    char ch;
 
-    puts("Enter the quadratic equation in the following format: 2x^2 - 4x + 2 = 0");
+    puts("Enter the quadratic equation in the following format: ax^2 - bx + c = k");
     get_coeffs(&a, &b, &c);
+    while ((ch = getchar()) != '\n' && ch != EOF)  //searching for right_part
+        if (ch == '=')
+        {
+            scanf("%f", &right_part);
+            break;
+        }
+    c -= right_part;
+    clear_input_stream();
+
+
+
     discriminant = make_discriminant(a, b, c);
 
     if (discriminant < 0)
@@ -71,8 +82,7 @@ void get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
     scanf("%f", ptr_c);
     if (sign == '-')
         *ptr_c = (-1) * *ptr_c;
-    while (getchar() != '\n')       //очистка входного потока
-        continue;
+
 }
 
 float make_discriminant(float a, float b, float c)
@@ -86,3 +96,11 @@ void make_roots(float *ptr_x1, float *ptr_x2, float a, float b, float discrimina
     *ptr_x2 = ((-1) * b - pow(discriminant, (float)1/2)) / (2 * a);
 }
 
+
+void clear_input_stream(void)
+{
+    char ch;
+
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        continue;
+}
