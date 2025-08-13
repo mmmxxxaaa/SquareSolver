@@ -4,14 +4,15 @@
 #include <math.h>
 
 /*Changes
-1. in the main() float solution_case -> int solution_case
-2. added enum possible_solution cases to use it in general_solution and general_output
-3. changed the order of function definitions and prototypes (now the order of definitions is the same as that of declarations)
-4. added continue_request()
+1. wrote correct type for solution_case
 */
 
-enum possible_solution_cases {all_abc_coef_0, only_ab_coef_0, only_a_coef_0,
-                              discriminant_equal_to_0, discriminant_more_than_0, discriminant_less_than_0};
+enum possible_solution_cases {all_abc_coef_0,
+                              only_ab_coef_0,
+                              only_a_coef_0,
+                              discriminant_equal_to_0,
+                              discriminant_more_than_0,
+                              discriminant_less_than_0};
 
 void get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
 float make_discriminant(float coeff_a, float coeff_b, float coeff_c);
@@ -20,7 +21,7 @@ void search_right_part(float * ptr_right_part);  //Not necessary function yet
 int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, float coeff_a, float coeff_b, float coeff_c);
 
 int general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coeff_a, float coeff_b, float coeff_c);  // mb add right_part later
-void general_output(float x1, float x2, int amount_of_roots, int solution_case);
+void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case);
 
 int is_zero(float number);
 void clear_input_stream(void);
@@ -44,11 +45,10 @@ int main()
         */
         clear_input_stream();
 
-        int solution_case;
         float x1, x2;
         int amount_of_roots;
+        enum possible_solution_cases solution_case = general_solution(&x1, &x2, &amount_of_roots, coef_a, coef_b, coef_c);
 
-        solution_case = general_solution(&x1, &x2, &amount_of_roots, coef_a, coef_b, coef_c);
         general_output(x1, x2, amount_of_roots, solution_case);
         if (continue_request() == -1)
             break;
@@ -127,7 +127,7 @@ int general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, 
     }
 }
 
-void general_output(float x1, float x2, int amount_of_roots, int solution_case)
+void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case)
 {
     switch(solution_case)   //advisedly added everywhere one more \n to make output more readable
     {
