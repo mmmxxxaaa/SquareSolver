@@ -3,17 +3,13 @@
 #include <ctype.h>
 #include <math.h>
 
-/*Remake
-1. Functions prototypes are outside the main() now
-2. a, b, c -> coef_a, coef_b, coef_c
-3. pow(...) -> sqrt(...)
-4. define -> const float
-5. added is_zero() function
-6. added search_right_part() function
-7. added processing of zero coefficients
+/*Changes
+1. simplified is_zero() + const float epsilon removed into is_zero
+2. corrected my mathematical mistake in a = 0 b = 0 c = 0 case
+3. added function solve_normal_quadratic_equation()
+4. simplified make_roots()
+5. changed the places of variable declarations
 */
-
-const float epsilon = 1e-7; //using with fabs instead discriminant == 0
 
 int is_zero(float number);
 void clear_input_stream(void);
@@ -22,6 +18,7 @@ void get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
 float make_discriminant(float coeff_a, float coeff_b, float coeff_c);
 void make_roots(float *ptr_x1, float *ptr_x2, float coeff_a, float coeff_b, float discriminant);
 void search_right_part(float * ptr_right_part);  //Not necessary function yet
+int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, float coeff_a, float coeff_b, float coeff_c);
 
 
 int main()
@@ -32,9 +29,6 @@ int main()
     while (stop_ch != 'q')
     {
         float coef_a, coef_b, coef_c, right_part;
-        float discriminant;
-        float x1, x2;
-
 
         get_coeffs(&coef_a, &coef_b, &coef_c);
         /*
@@ -44,7 +38,7 @@ int main()
         clear_input_stream();
 
         if (is_zero(coef_a) && is_zero(coef_b) && is_zero(coef_c))
-            puts("This is not an equation and this mathematical expression is true, because 0 = 0\n");  //advisedly added \n to make output more readable
+            puts("Any x from [-INF; +INF] is the root of this equation\n");  //advisedly added \n to make output more readable
         else if (is_zero(coef_a) && is_zero(coef_b))
             printf("This is not an equation and this mathematical expression is false, becaude %f != 0\n\n", coef_c);  //advisedly added \n to make output more readable
         else if (is_zero(coef_a))
@@ -54,31 +48,17 @@ int main()
         }
         else
         {
-            discriminant = make_discriminant(coef_a, coef_b, coef_c);
+            int amount_of_roots;
+            float x1, x2;
 
-            if (discriminant < 0)
-            {
-                puts("This quadratic equation has no solutions in real numbers");
-                printf("\n");
-            }
-            else if (is_zero(discriminant))
-            {
-                make_roots(&x1, &x2, coef_a, coef_b, fabs(discriminant));
-                puts("The roots of this quadratic equation are repeated,");
-                printf("so x1 = x2 = %f\n", x2);
-                printf("\n");
-            }
-            else
-            {
-                make_roots(&x1, &x2, coef_a, coef_b, discriminant);
-                puts("The roots of this quadratic equation are:");
-                printf("x1 = %f    x2 = %f \n", x1, x2);
-                printf("\n");
-            }
+            amount_of_roots = solve_normal_quadratic_equation(&x1, &x2, coef_a, coef_b, coef_c);
+            printf("This quadratic equation has %d root(s)\n", amount_of_roots);
+            if (amount_of_roots == 1)
+                printf("x = %f\n\n", x2);
+            else if (amount_of_roots == 2)
+                printf("x1 = %f    x2 = %f \n\n", x1, x2);
         }
 
-        //printf("coefs: %f %f %f \n", coef_a, coef_b, coef_c);    //debug
-        //printf("discr: %f \n", discriminant);                    //debug
         puts("Enter new quadratic quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0");
         puts("Or enter 'q' to quit the program");
         stop_ch = getchar();
@@ -91,10 +71,8 @@ int main()
 
 int is_zero(float number)
 {
-    if (fabs(number) < epsilon)
-        return 1;
-    else
-        return 0;
+    const float epsilon = 1e-7;
+    return fabs(number) < epsilon;
 }
 
 
@@ -123,12 +101,31 @@ float make_discriminant(float coef_a, float coef_b, float coef_c)
 
 void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b, float discriminant)
 {
-    *ptr_x1 = ((-1) * coef_b + sqrt(discriminant)) / (2 * coef_a);
-    *ptr_x2 = ((-1) * coef_b - sqrt(discriminant)) / (2 * coef_a);
+    float discr_square_root = sqrt(discriminant);
+
+    *ptr_x1 = ((-1) * coef_b + discr_square_root) / (2 * coef_a);
+    *ptr_x2 = ((-1) * coef_b - discr_square_root) / (2 * coef_a);
 }
 
+int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, float coef_a, float coef_b, float coef_c)
+{
+    float discriminant = make_discriminant(coef_a, coef_b, coef_c);
 
-void clear_input_stream(void)
+    if (discriminant < 0)
+        return 0;
+    else if (is_zero(discriminant))
+    {
+        make_roots(ptr_x1, ptr_x2, coef_a, coef_b, fabs(discriminant));
+        return 1;
+    }
+    else
+    {
+        make_roots(ptr_x1, ptr_x2, coef_a, coef_b, discriminant);
+        return 2;
+    }
+}
+
+void clear_input_stream()
 {
     char ch;
 
