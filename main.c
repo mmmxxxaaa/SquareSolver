@@ -4,21 +4,27 @@
 #include <math.h>
 
 /*Changes
-1. wrote correct type for solution_case
+1. get_coeffs() notifies the user about the error
+2. changed names in enum possible_solution_cases
+3. added solve_normal_linear_equation
+4. changed solve_normal_linear_equation
+5. 3) + 4) -> general solution is much more shorter now
 */
 
 enum possible_solution_cases {all_abc_coef_0,
                               only_ab_coef_0,
                               only_a_coef_0,
-                              discriminant_equal_to_0,
-                              discriminant_more_than_0,
-                              discriminant_less_than_0};
+                              quadric_has_1_root,
+                              quadric_has_2_roots,
+                              quadric_has_0_roots};
 
-void get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
+int get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
 float make_discriminant(float coeff_a, float coeff_b, float coeff_c);
 void make_roots(float *ptr_x1, float *ptr_x2, float coeff_a, float coeff_b, float discriminant);
 void search_right_part(float * ptr_right_part);  //Not necessary function yet
-int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, float coeff_a, float coeff_b, float coeff_c);
+
+int solve_normal_linear_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coeff_b, float coeff_c);
+int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coeff_a, float coeff_b, float coeff_c);
 
 int general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coeff_a, float coeff_b, float coeff_c);  // mb add right_part later
 void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case);
@@ -35,9 +41,7 @@ int main()
     while (stop_ch != 'q')
     {
         float coef_a, coef_b, coef_c;
-
-
-        get_coeffs(&coef_a, &coef_b, &coef_c);
+        int error_flag = get_coeffs(&coef_a, &coef_b, &coef_c);
         /*
         float right_part;
         search_right_part(&right_part);
@@ -45,20 +49,28 @@ int main()
         */
         clear_input_stream();
 
-        float x1, x2;
-        int amount_of_roots;
-        enum possible_solution_cases solution_case = general_solution(&x1, &x2, &amount_of_roots, coef_a, coef_b, coef_c);
+        if (!error_flag)
+        {
+            float x1, x2;
+            int amount_of_roots;
+            enum possible_solution_cases solution_case = general_solution(&x1, &x2, &amount_of_roots, coef_a, coef_b, coef_c);
 
-        general_output(x1, x2, amount_of_roots, solution_case);
+            general_output(x1, x2, amount_of_roots, solution_case);
+        }
         if (continue_request() == -1)
             break;
     }
 }
 
-void get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
+int get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
 {
-    scanf("%f %f %f", ptr_a, ptr_b, ptr_c);
-
+    if (scanf("%f %f %f", ptr_a, ptr_b, ptr_c) != 3)
+    {
+        puts("Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n");
+        return 1;
+    }
+    else
+        return 0;
 }
 
 float make_discriminant(float coef_a, float coef_b, float coef_c)
@@ -86,21 +98,34 @@ void search_right_part(float * ptr_right_part)    //Not necessary function yet
         }
 }
 
-int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, float coef_a, float coef_b, float coef_c)
+
+int solve_normal_linear_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_b, float coef_c)
+{
+    *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
+    *ptr_amount_of_roots = 1;
+    return only_a_coef_0;
+}
+
+int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
 {
     float discriminant = make_discriminant(coef_a, coef_b, coef_c);
 
     if (discriminant < 0)
-        return 0;
+    {
+        *ptr_amount_of_roots = 0;
+        return quadric_has_0_roots;
+    }
     else if (is_zero(discriminant))
     {
         make_roots(ptr_x1, ptr_x2, coef_a, coef_b, fabs(discriminant));
-        return 1;
+        *ptr_amount_of_roots = 1;
+        return quadric_has_1_root;
     }
     else
     {
         make_roots(ptr_x1, ptr_x2, coef_a, coef_b, discriminant);
-        return 2;
+        *ptr_amount_of_roots = 2;
+        return quadric_has_2_roots;
     }
 }
 
@@ -111,20 +136,9 @@ int general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, 
     else if (is_zero(coef_a) && is_zero(coef_b))
         return only_ab_coef_0;
     else if (is_zero(coef_a))
-    {
-        *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
-        return only_a_coef_0;
-    }
+        return solve_normal_linear_equation(ptr_x1, ptr_x2, ptr_amount_of_roots, coef_b, coef_c);
     else
-    {
-        *ptr_amount_of_roots = solve_normal_quadratic_equation(ptr_x1, ptr_x2, coef_a, coef_b, coef_c);
-        if (*ptr_amount_of_roots == 1)    //discriminant = 0
-            return discriminant_equal_to_0;
-        else if (*ptr_amount_of_roots == 2)  //discriminant > 0
-            return discriminant_more_than_0;
-        else
-            return discriminant_less_than_0;   //discriminant < 0
-    }
+        return solve_normal_quadratic_equation(ptr_x1, ptr_x2, ptr_amount_of_roots, coef_a, coef_b, coef_c);
 }
 
 void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case)
@@ -143,19 +157,19 @@ void general_output(float x1, float x2, int amount_of_roots, enum possible_solut
             printf("x = %f\n\n", x1);
             break;
         }
-        case discriminant_equal_to_0:
+        case quadric_has_1_root:
         {
             printf("This quadratic equation has %d root\n", amount_of_roots);
             printf("x = %f\n\n", x1);
             break;
         }
-        case discriminant_more_than_0:
+        case quadric_has_2_roots:
         {
             printf("This quadratic equation has %d roots\n", amount_of_roots);
             printf("x1 = %f     x2 = %f\n\n", x1, x2);
             break;
         }
-        case discriminant_less_than_0:
+        case quadric_has_0_roots:
         {
             puts("This quadratic equation does not have roots in real numbers\n");
             break;
