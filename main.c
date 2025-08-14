@@ -123,7 +123,7 @@ int general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, 
         else if (*ptr_amount_of_roots == 2)  //discriminant > 0
             return discriminant_more_than_0;
         else
-            return 5;   //discriminant < 0
+            return discriminant_less_than_0;   //discriminant < 0
     }
 }
 
