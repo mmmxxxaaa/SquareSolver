@@ -1,6 +1,7 @@
-#include "functions.h"
+#include "processing.h"
+#include "equation_solver.h"
+
 #include <stdio.h>
-#include <math.h>
 #include <stdbool.h>
 
 

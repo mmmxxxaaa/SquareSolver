@@ -1,0 +1,83 @@
+#include "equation_solver.h"
+#include "processing.h"
+
+#include <math.h>
+#include <stdio.h>
+
+enum possible_solution_cases {
+    all_abc_coef_0,
+    only_ab_coef_0,
+    only_a_coef_0,
+    quadric_has_1_root,
+    quadric_has_2_roots,
+    quadric_has_0_roots
+};
+
+
+float make_discriminant(float coef_a, float coef_b, float coef_c)
+{
+    return coef_b * coef_b - 4 * coef_a * coef_c;
+}
+
+void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b, float discriminant)
+{
+    float discr_square_root = sqrt(discriminant);
+
+    *ptr_x1 = ((-1) * coef_b + discr_square_root) / (2 * coef_a);
+    *ptr_x2 = ((-1) * coef_b - discr_square_root) / (2 * coef_a);
+}
+
+void search_right_part(float * ptr_right_part)    //Not necessary function yet
+{
+    int ch;
+
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        if (ch == '=')
+        {
+            scanf("%f", ptr_right_part);
+            break;
+        }
+}
+
+
+enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_b, float coef_c)
+{
+    *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
+    *ptr_amount_of_roots = 1;
+    return only_a_coef_0;
+}
+
+enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
+{
+    float discriminant = make_discriminant(coef_a, coef_b, coef_c);
+
+    if (discriminant < 0)
+    {
+        *ptr_amount_of_roots = 0;
+        return quadric_has_0_roots;
+    }
+    else if (is_zero(discriminant))
+    {
+        make_roots(ptr_x1, ptr_x2, coef_a, coef_b, fabs(discriminant));
+        *ptr_amount_of_roots = 1;
+        return quadric_has_1_root;
+    }
+    else
+    {
+        make_roots(ptr_x1, ptr_x2, coef_a, coef_b, discriminant);
+        *ptr_amount_of_roots = 2;
+        return quadric_has_2_roots;
+    }
+}
+
+enum possible_solution_cases general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
+{
+    if (is_zero(coef_a) && is_zero(coef_b) && is_zero(coef_c))
+        return all_abc_coef_0;
+    else if (is_zero(coef_a) && is_zero(coef_b))
+        return only_ab_coef_0;
+    else if (is_zero(coef_a))
+        return solve_normal_linear_equation(ptr_x1, ptr_x2, ptr_amount_of_roots, coef_b, coef_c);
+    else
+        return solve_normal_quadratic_equation(ptr_x1, ptr_x2, ptr_amount_of_roots, coef_a, coef_b, coef_c);
+}
