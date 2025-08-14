@@ -4,15 +4,6 @@
 #include <math.h>
 #include <stdio.h>
 
-enum possible_solution_cases {
-    all_abc_coef_0,
-    only_ab_coef_0,
-    only_a_coef_0,
-    quadric_has_1_root,
-    quadric_has_2_roots,
-    quadric_has_0_roots
-};
-
 
 float make_discriminant(float coef_a, float coef_b, float coef_c)
 {

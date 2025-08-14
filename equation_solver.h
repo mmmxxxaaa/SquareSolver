@@ -1,6 +1,15 @@
 #ifndef EQUATION_SOLVER_H_
 #define EQUATION_SOLVER_H_
 
+enum possible_solution_cases {
+    all_abc_coef_0,
+    only_ab_coef_0,
+    only_a_coef_0,
+    quadric_has_1_root,
+    quadric_has_2_roots,
+    quadric_has_0_roots
+};
+
 float make_discriminant(float coeff_a, float coeff_b, float coeff_c);
 void make_roots(float *ptr_x1, float *ptr_x2, float coeff_a, float coeff_b, float discriminant);
 void search_right_part(float * ptr_right_part);  //Not necessary function yet

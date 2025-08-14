@@ -2,6 +2,7 @@
 #define PROCESSING_H_
 
 #include <stdbool.h>
+#include "equation_solver.h"
 
 
 bool get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
