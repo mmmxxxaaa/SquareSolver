@@ -1,9 +1,7 @@
-#include "processing.h"
-
 #include <stdio.h>
 #include <stdbool.h>
-#include <math.h>
 
+#include "processing.h"
 
 bool get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
 {
@@ -14,6 +12,18 @@ bool get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
     }
     else
         return false;
+}
+
+void search_right_part(float * ptr_right_part)    //Not necessary function yet
+{
+    int ch;
+
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        if (ch == '=')
+        {
+            scanf("%f", ptr_right_part);
+            break;
+        }
 }
 
 void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case)
@@ -54,12 +64,6 @@ void general_output(float x1, float x2, int amount_of_roots, enum possible_solut
 
 
     }
-}
-
-bool is_zero(float number)
-{
-    const double epsilon = 1e-7;
-    return fabs(number) < epsilon;
 }
 
 void clear_input_stream()

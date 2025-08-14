@@ -1,16 +1,16 @@
-#include "equation_solver.h"
-#include "processing.h"
-
 #include <math.h>
 #include <stdio.h>
 
+#include "equation_solver.h"
+#include "processing.h"
+#include "logic_functions.h"
 
-float make_discriminant(float coef_a, float coef_b, float coef_c)
+static float make_discriminant(float coef_a, float coef_b, float coef_c)
 {
     return coef_b * coef_b - 4 * coef_a * coef_c;
 }
 
-void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b, float discriminant)
+static void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b, float discriminant)
 {
     float discr_square_root = sqrt(discriminant);
 
@@ -18,27 +18,14 @@ void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b, float 
     *ptr_x2 = ((-1) * coef_b - discr_square_root) / (2 * coef_a);
 }
 
-void search_right_part(float * ptr_right_part)    //Not necessary function yet
-{
-    int ch;
-
-    while ((ch = getchar()) != '\n' && ch != EOF)
-        if (ch == '=')
-        {
-            scanf("%f", ptr_right_part);
-            break;
-        }
-}
-
-
-enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_b, float coef_c)
+static enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_b, float coef_c)
 {
     *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
     *ptr_amount_of_roots = 1;
     return only_a_coef_0;
 }
 
-enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
+static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
 {
     float discriminant = make_discriminant(coef_a, coef_b, coef_c);
 

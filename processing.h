@@ -6,9 +6,9 @@
 
 
 bool get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
+void search_right_part(float * ptr_right_part);  //Not necessary function yet
 void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case);
 
-bool is_zero(float number);
 void clear_input_stream(void);
 int continue_request();
 

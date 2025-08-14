@@ -1,13 +1,9 @@
-#include "processing.h"
-#include "equation_solver.h"
-
 #include <stdio.h>
 #include <stdbool.h>
 
-
-/*Changes
-1. Split program into 3 files
-*/
+#include "processing.h"
+#include "equation_solver.h"
+//тут же не нужно include "logic_functions.h"? Или в мэйне всегда должны быть включены имеющиеся заголовочные файлы?
 
 int main()
 {
