@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
-
+#include <stdbool.h>
 /*Changes
 1. get_coeffs() notifies the user about the error
 2. changed names in enum possible_solution_cases
 3. added solve_normal_linear_equation
 4. changed solve_normal_linear_equation
 5. 3) + 4) -> general solution is much more shorter now
+6. added bool type
 */
 
 enum possible_solution_cases {all_abc_coef_0,
@@ -18,7 +19,7 @@ enum possible_solution_cases {all_abc_coef_0,
                               quadric_has_2_roots,
                               quadric_has_0_roots};
 
-int get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
+bool get_coeffs(float *ptr_a, float *ptr_b, float *ptr_c);
 float make_discriminant(float coeff_a, float coeff_b, float coeff_c);
 void make_roots(float *ptr_x1, float *ptr_x2, float coeff_a, float coeff_b, float discriminant);
 void search_right_part(float * ptr_right_part);  //Not necessary function yet
@@ -29,7 +30,7 @@ int solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_am
 int general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coeff_a, float coeff_b, float coeff_c);  // mb add right_part later
 void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case);
 
-int is_zero(float number);
+bool is_zero(float number);
 void clear_input_stream(void);
 int continue_request();
 
@@ -41,7 +42,7 @@ int main()
     while (stop_ch != 'q')
     {
         float coef_a, coef_b, coef_c;
-        int error_flag = get_coeffs(&coef_a, &coef_b, &coef_c);
+        bool error_flag = get_coeffs(&coef_a, &coef_b, &coef_c);
         /*
         float right_part;
         search_right_part(&right_part);
@@ -62,15 +63,15 @@ int main()
     }
 }
 
-int get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
+bool get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
 {
     if (scanf("%f %f %f", ptr_a, ptr_b, ptr_c) != 3)
     {
         puts("Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n");
-        return 1;
+        return true;
     }
     else
-        return 0;
+        return false;
 }
 
 float make_discriminant(float coef_a, float coef_b, float coef_c)
@@ -179,7 +180,7 @@ void general_output(float x1, float x2, int amount_of_roots, enum possible_solut
     }
 }
 
-int is_zero(float number)
+bool is_zero(float number)
 {
     const float epsilon = 1e-7;
     return fabs(number) < epsilon;
