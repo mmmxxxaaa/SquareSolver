@@ -28,7 +28,8 @@ static enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1,
 {
     *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
     *ptr_amount_of_roots = 1;
-    return only_a_coef_0;
+
+    return linear_has_1_root;
 }
 
 static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
@@ -38,18 +39,21 @@ static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_
     if (discriminant < 0)
     {
         *ptr_amount_of_roots = 0;
+
         return quadric_has_0_roots;
     }
     else if (is_zero(discriminant))
     {
         make_roots(ptr_x1, ptr_x2, coef_a, coef_b, fabs(discriminant));
         *ptr_amount_of_roots = 1;
+
         return quadric_has_1_root;
     }
     else
     {
         make_roots(ptr_x1, ptr_x2, coef_a, coef_b, discriminant);
         *ptr_amount_of_roots = 2;
+
         return quadric_has_2_roots;
     }
 }
@@ -57,9 +61,9 @@ static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_
 enum possible_solution_cases general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
 {
     if (is_zero(coef_a) && is_zero(coef_b) && is_zero(coef_c))
-        return all_abc_coef_0;
+        return inf_roots;
     else if (is_zero(coef_a) && is_zero(coef_b))
-        return only_ab_coef_0;
+        return no_roots;
     else if (is_zero(coef_a))
         return solve_normal_linear_equation(ptr_x1, ptr_x2, ptr_amount_of_roots, coef_b, coef_c);
     else

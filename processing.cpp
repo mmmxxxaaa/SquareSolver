@@ -30,13 +30,13 @@ void general_output(float x1, float x2, int amount_of_roots, enum possible_solut
 {
     switch(solution_case)   //advisedly added everywhere one more \n to make output more readable
     {
-        case all_abc_coef_0:
+        case inf_roots:
             puts("Any x from [-INF; +INF] is the root of this equation\n");
             break;
-        case only_ab_coef_0:
+        case no_roots:
             puts("This equation doesn't have any root\n");
             break;
-        case only_a_coef_0:
+        case linear_has_1_root:
         {
             puts("This is not an quadratic equation, but it is linear equation and it has one root:");
             printf("x = %f\n\n", x1);

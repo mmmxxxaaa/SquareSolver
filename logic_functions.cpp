@@ -5,6 +5,6 @@
 
 bool is_zero(float number)
 {
-    const double epsilon = 1e-7;
-    return fabs(number) < epsilon;
+    const float epsilon = 1e-7f;
+    return fabsf(number) < epsilon;
 }

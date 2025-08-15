@@ -5,4 +5,4 @@
 bool is_zero(float number);
 
 
-#endif //LOGIC_FUNCTIONS_H_
+#endif // LOGIC_FUNCTIONS_H_
