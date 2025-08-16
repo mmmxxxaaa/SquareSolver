@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <stdbool.h>
+ #include <assert.h>
 
 #include "processing.h"
 
 bool get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
 {
+    assert(ptr_a != NULL);
+    assert(ptr_b != NULL);
+    assert(ptr_c != NULL);
+
     if (scanf("%f %f %f", ptr_a, ptr_b, ptr_c) != 3)
     {
         puts("Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n");
@@ -17,6 +22,8 @@ bool get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
 void search_right_part(float * ptr_right_part)    //Not necessary function yet
 {
     int ch;
+
+    assert(ptr_right_part);
 
     while ((ch = getchar()) != '\n' && ch != EOF)
         if (ch == '=')

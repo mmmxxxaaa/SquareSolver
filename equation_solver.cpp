@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+ #include <assert.h>
 
 #include "equation_solver.h"
 #include "processing.h"
@@ -18,7 +19,10 @@ static float make_discriminant(float coef_a, float coef_b, float coef_c)
 
 static void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b, float discriminant)
 {
-    float discr_square_root = sqrt(discriminant);
+    float discr_square_root = sqrtf(discriminant);
+
+    assert(ptr_x1 != NULL);
+    assert(ptr_x2 != NULL);
 
     *ptr_x1 = ((-1) * coef_b + discr_square_root) / (2 * coef_a);
     *ptr_x2 = ((-1) * coef_b - discr_square_root) / (2 * coef_a);
@@ -26,6 +30,9 @@ static void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b,
 
 static enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_b, float coef_c)
 {
+    assert(ptr_x1 != NULL);
+    assert(ptr_x2 != NULL);
+    assert(ptr_amount_of_roots != NULL);
     *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
     *ptr_amount_of_roots = 1;
 
@@ -35,6 +42,10 @@ static enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1,
 static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
 {
     float discriminant = make_discriminant(coef_a, coef_b, coef_c);
+
+    assert(ptr_x1 != NULL);
+    assert(ptr_x2 != NULL);
+    assert(ptr_amount_of_roots != NULL);
 
     if (discriminant < 0)
     {
@@ -60,6 +71,10 @@ static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_
 
 enum possible_solution_cases general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
 {
+    assert(ptr_x1 != NULL);
+    assert(ptr_x2 != NULL);
+    assert(ptr_amount_of_roots != NULL);
+
     if (is_zero(coef_a) && is_zero(coef_b) && is_zero(coef_c))
         return inf_roots;
     else if (is_zero(coef_a) && is_zero(coef_b))
