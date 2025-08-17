@@ -25,7 +25,7 @@ int main()
         {
             float x1, x2;
             int amount_of_roots;
-            enum possible_solution_cases solution_case = general_solution(&x1, &x2, &amount_of_roots, coeffs.coef_a, coeffs.coef_b, coeffs.coef_c);
+            enum possible_solution_cases solution_case = general_solution(&x1, &x2, &amount_of_roots, coeffs);
 
             general_output(x1, x2, amount_of_roots, solution_case);
         }
