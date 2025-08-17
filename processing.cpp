@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
- #include <assert.h>
+#include <assert.h>
 
 #include "processing.h"
 
-bool get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
+bool get_coeffs(struct quadric_coeffs * ptr_coeffs)
 {
-    assert(ptr_a != NULL);
-    assert(ptr_b != NULL);
-    assert(ptr_c != NULL);
-
-    if (scanf("%f %f %f", ptr_a, ptr_b, ptr_c) != 3)
+    if (scanf("%f %f %f", &(ptr_coeffs -> coef_a), &(ptr_coeffs -> coef_b), &(ptr_coeffs -> coef_c)) != 3)
     {
         puts("Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n");
         return true;
