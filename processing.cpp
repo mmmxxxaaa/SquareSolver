@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <assert.h>
 
-bool get_coeffs(struct quadric_coeffs * ptr_coeffs)
+bool get_coeffs(struct QuadricCoeffs * ptr_coeffs)
 {
     assert(ptr_coeffs != NULL);
 
@@ -17,7 +17,7 @@ bool get_coeffs(struct quadric_coeffs * ptr_coeffs)
         return false;
 }
 
-void general_output(struct answer_and_solution result)
+void general_output(struct AnswerAndSolution result)
 {
     switch(result.solution_case)   //advisedly added everywhere one more \n to make output more readable
     {

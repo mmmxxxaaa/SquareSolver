@@ -10,19 +10,19 @@ enum PossibleSolutionCases {
     quadric_has_0_roots
 };
 
-struct quadric_coeffs {
+struct QuadricCoeffs {
     float coef_a;
     float coef_b;
     float coef_c;
 };
 
-struct answer_and_solution {
+struct AnswerAndSolution {
     float x1;
     float x2;
     int amount_of_roots;
     enum PossibleSolutionCases solution_case;
 };
 
-enum PossibleSolutionCases general_solution(struct answer_and_solution * result, struct quadric_coeffs coeffs);  // mb add right_part later
+enum PossibleSolutionCases general_solution(struct AnswerAndSolution * result, struct QuadricCoeffs coeffs);  // mb add right_part later
 
 #endif // EQUATION_SOLVER_H_

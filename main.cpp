@@ -11,7 +11,7 @@ int main()
     puts("Enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0");
     while (stop_ch != 'q')
     {
-        struct quadric_coeffs coeffs;
+        struct QuadricCoeffs coeffs;
 
         bool is_failed = get_coeffs(&coeffs);
         /*
@@ -23,7 +23,7 @@ int main()
 
         if (!is_failed)
         {
-            struct answer_and_solution result;
+            struct AnswerAndSolution result;
             result.solution_case = general_solution(&result, coeffs);
 
             general_output(result);
