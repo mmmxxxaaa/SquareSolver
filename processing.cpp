@@ -29,9 +29,9 @@ void search_right_part(float * ptr_right_part)    //Not necessary function yet
         }
 }
 
-void general_output(float x1, float x2, int amount_of_roots, enum possible_solution_cases solution_case)
+void general_output(struct answer_and_solution result)
 {
-    switch(solution_case)   //advisedly added everywhere one more \n to make output more readable
+    switch(result.solution_case)   //advisedly added everywhere one more \n to make output more readable
     {
         case inf_roots:
             puts("Any x from [-INF; +INF] is the root of this equation\n");
@@ -42,19 +42,19 @@ void general_output(float x1, float x2, int amount_of_roots, enum possible_solut
         case linear_has_1_root:
         {
             puts("This is not an quadratic equation, but it is linear equation and it has one root:");
-            printf("x = %f\n\n", x1);
+            printf("x = %f\n\n", result.x1);
             break;
         }
         case quadric_has_1_root:
         {
-            printf("This quadratic equation has %d root\n", amount_of_roots);
-            printf("x = %f\n\n", x1);
+            printf("This quadratic equation has %d root\n", result.amount_of_roots);
+            printf("x = %f\n\n", result.x1);
             break;
         }
         case quadric_has_2_roots:
         {
-            printf("This quadratic equation has %d roots\n", amount_of_roots);
-            printf("x1 = %f     x2 = %f\n\n", x1, x2);
+            printf("This quadratic equation has %d roots\n", result.amount_of_roots);
+            printf("x1 = %f     x2 = %f\n\n", result.x1, result.x2);
             break;
         }
         case quadric_has_0_roots:

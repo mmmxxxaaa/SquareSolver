@@ -23,11 +23,10 @@ int main()
 
         if (!error_flag)
         {
-            float x1, x2;
-            int amount_of_roots;
-            enum possible_solution_cases solution_case = general_solution(&x1, &x2, &amount_of_roots, coeffs);
+            struct answer_and_solution result;
+            result.solution_case = general_solution(&result, coeffs);
 
-            general_output(x1, x2, amount_of_roots, solution_case);
+            general_output(result);
         }
         if (continue_request() == -1)
             break;

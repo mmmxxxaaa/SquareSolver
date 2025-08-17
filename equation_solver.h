@@ -10,6 +10,6 @@ enum possible_solution_cases {
     quadric_has_0_roots
 };
 
-enum possible_solution_cases general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, struct quadric_coeffs coeffs);  // mb add right_part later
+enum possible_solution_cases general_solution(struct answer_and_solution * result, struct quadric_coeffs coeffs);  // mb add right_part later
 
 #endif // EQUATION_SOLVER_H_

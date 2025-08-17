@@ -70,18 +70,19 @@ static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_
     }
 }
 
-enum possible_solution_cases general_solution(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, struct quadric_coeffs coeffs)
+enum possible_solution_cases general_solution(struct answer_and_solution * result, struct quadric_coeffs coeffs)
 {
-    assert(ptr_x1 != NULL);
-    assert(ptr_x2 != NULL);
-    assert(ptr_amount_of_roots != NULL);
+    assert(result != NULL);
+    assert(&(result -> x1) != NULL);
+    assert(&(result -> x2) != NULL);
+    assert(&(result -> amount_of_roots) != NULL);
 
     if (is_zero(coeffs.coef_a) && is_zero(coeffs.coef_b) && is_zero(coeffs.coef_c))
         return inf_roots;
     else if (is_zero(coeffs.coef_a) && is_zero(coeffs.coef_b))
         return no_roots;
     else if (is_zero(coeffs.coef_a))
-        return solve_normal_linear_equation(ptr_x1, ptr_x2, ptr_amount_of_roots, coeffs.coef_b, coeffs.coef_c);
+        return solve_normal_linear_equation(&(result -> x1), &(result -> x2), &(result -> amount_of_roots), coeffs.coef_b, coeffs.coef_c);
     else
-        return solve_normal_quadratic_equation(ptr_x1, ptr_x2, ptr_amount_of_roots, coeffs);
+        return solve_normal_quadratic_equation(&(result -> x1), &(result -> x2), &(result -> amount_of_roots), coeffs);
 }
