@@ -13,7 +13,7 @@ int main()
     {
         struct quadric_coeffs coeffs;
 
-        bool error_flag = get_coeffs(&coeffs);
+        bool is_failed = get_coeffs(&coeffs);
         /*
         float right_part;
         search_right_part(&right_part);
@@ -21,7 +21,7 @@ int main()
         */
         clear_input_stream();
 
-        if (!error_flag)
+        if (!is_failed)
         {
             struct answer_and_solution result;
             result.solution_case = general_solution(&result, coeffs);

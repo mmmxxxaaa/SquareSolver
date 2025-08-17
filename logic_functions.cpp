@@ -1,7 +1,7 @@
+#include "logic_functions.h"
+
 #include <stdbool.h>
 #include <math.h>
-
-#include "logic_functions.h"
 
 bool is_zero(float number)
 {

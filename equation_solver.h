@@ -1,7 +1,7 @@
 #ifndef EQUATION_SOLVER_H_
 #define EQUATION_SOLVER_H_
 
-enum possible_solution_cases {
+enum PossibleSolutionCases {
     inf_roots,
     no_roots,
     linear_has_1_root,
@@ -20,9 +20,9 @@ struct answer_and_solution {
     float x1;
     float x2;
     int amount_of_roots;
-    enum possible_solution_cases solution_case;
+    enum PossibleSolutionCases solution_case;
 };
 
-enum possible_solution_cases general_solution(struct answer_and_solution * result, struct quadric_coeffs coeffs);  // mb add right_part later
+enum PossibleSolutionCases general_solution(struct answer_and_solution * result, struct quadric_coeffs coeffs);  // mb add right_part later
 
 #endif // EQUATION_SOLVER_H_

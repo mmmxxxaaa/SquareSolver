@@ -1,32 +1,20 @@
+#include "processing.h"
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
 
-#include "processing.h"
-
 bool get_coeffs(struct quadric_coeffs * ptr_coeffs)
 {
-    if (scanf("%f %f %f", &(ptr_coeffs -> coef_a), &(ptr_coeffs -> coef_b), &(ptr_coeffs -> coef_c)) != 3)
+    assert(ptr_coeffs != NULL);
+
+    if (scanf("%f %f %f", &(ptr_coeffs->coef_a), &(ptr_coeffs->coef_b), &(ptr_coeffs->coef_c)) != 3)
     {
         puts("Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n");
         return true;
     }
     else
         return false;
-}
-
-void search_right_part(float * ptr_right_part)    //Not necessary function yet
-{
-    assert(ptr_right_part);
-
-    int ch;
-
-    while ((ch = getchar()) != '\n' && ch != EOF)
-        if (ch == '=')
-        {
-            scanf("%f", ptr_right_part);
-            break;
-        }
 }
 
 void general_output(struct answer_and_solution result)
@@ -79,11 +67,10 @@ void clear_input_stream()
 
 int continue_request()
 {
-    int stop_ch;
-
     puts("Enter new quadratic quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0");
     puts("Or enter 'q' to quit the program");
-    stop_ch = getchar();
+
+    int stop_ch = getchar();
     if (stop_ch != 'q')
     {
         ungetc(stop_ch, stdin);
