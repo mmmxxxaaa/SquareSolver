@@ -21,9 +21,9 @@ bool get_coeffs(float * ptr_a, float * ptr_b, float * ptr_c)
 
 void search_right_part(float * ptr_right_part)    //Not necessary function yet
 {
-    int ch;
-
     assert(ptr_right_part);
+
+    int ch;
 
     while ((ch = getchar()) != '\n' && ch != EOF)
         if (ch == '=')

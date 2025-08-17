@@ -1,6 +1,6 @@
 #include <math.h>
 #include <stdio.h>
- #include <assert.h>
+#include <assert.h>
 
 #include "equation_solver.h"
 #include "processing.h"
@@ -19,10 +19,10 @@ static float make_discriminant(float coef_a, float coef_b, float coef_c)
 
 static void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b, float discriminant)
 {
-    float discr_square_root = sqrtf(discriminant);
-
     assert(ptr_x1 != NULL);
     assert(ptr_x2 != NULL);
+
+    float discr_square_root = sqrtf(discriminant);
 
     *ptr_x1 = ((-1) * coef_b + discr_square_root) / (2 * coef_a);
     *ptr_x2 = ((-1) * coef_b - discr_square_root) / (2 * coef_a);
@@ -33,6 +33,7 @@ static enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1,
     assert(ptr_x1 != NULL);
     assert(ptr_x2 != NULL);
     assert(ptr_amount_of_roots != NULL);
+
     *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
     *ptr_amount_of_roots = 1;
 
@@ -41,11 +42,11 @@ static enum possible_solution_cases solve_normal_linear_equation(float * ptr_x1,
 
 static enum possible_solution_cases solve_normal_quadratic_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_a, float coef_b, float coef_c)
 {
-    float discriminant = make_discriminant(coef_a, coef_b, coef_c);
-
     assert(ptr_x1 != NULL);
     assert(ptr_x2 != NULL);
     assert(ptr_amount_of_roots != NULL);
+
+    float discriminant = make_discriminant(coef_a, coef_b, coef_c);
 
     if (discriminant < 0)
     {
