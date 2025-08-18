@@ -23,6 +23,6 @@ struct AnswerAndSolution {
     enum PossibleSolutionCases solution_case;
 };
 
-enum PossibleSolutionCases general_solution(struct AnswerAndSolution * result, struct QuadricCoeffs coeffs);  // mb add right_part later
+enum PossibleSolutionCases general_solution(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);  // mb add right_part later
 
 #endif // EQUATION_SOLVER_H_

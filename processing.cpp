@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <assert.h>
 
-bool get_coeffs(struct QuadricCoeffs * ptr_coeffs)
+bool get_coeffs(struct QuadricCoeffs* ptr_coeffs)
 {
     assert(ptr_coeffs != NULL);
 
