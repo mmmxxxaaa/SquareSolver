@@ -10,7 +10,7 @@ bool get_coeffs(struct QuadricCoeffs * ptr_coeffs)
 
     if (scanf("%f %f %f", &(ptr_coeffs->coef_a), &(ptr_coeffs->coef_b), &(ptr_coeffs->coef_c)) != 3)
     {
-        puts(RED BOLD "Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n" NORMAL RESET);
+        puts(RED BOLD "Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n" RESET RESET);
         return true;
     }
     else
