@@ -8,7 +8,7 @@ int main()
 {
     char stop_ch = 'w';
 
-    puts("\033[34mEnter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0 \033[0m");
+    puts("\033[34m" "Enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0" "\033[0m");
     while (stop_ch != 'q')
     {
         struct QuadricCoeffs coeffs;
