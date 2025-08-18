@@ -17,10 +17,10 @@ bool is_nan(float number)
 
 bool is_inf(float number)
 {
-    return (number < -FLT_MAX || number > FLT_MAX);
+    return number < -FLT_MAX || number > FLT_MAX;
 }
 
 bool is_finite(float number)
 {
-    return (!is_inf(number) && !is_nan(number));
+    return !is_inf(number) && !is_nan(number);
 }

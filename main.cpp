@@ -3,6 +3,7 @@
 
 #include "processing.h"
 #include "equation_solver.h"
+#include "colors_codes.h"
 
 int main()
 {

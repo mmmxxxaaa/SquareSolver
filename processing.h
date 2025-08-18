@@ -4,7 +4,6 @@
 #include <stdbool.h>
 
 #include "equation_solver.h"
-#include "colors_codes.h"
 
 bool get_coeffs(struct QuadricCoeffs* coeffs);
 void general_output(struct AnswerAndSolution result);
