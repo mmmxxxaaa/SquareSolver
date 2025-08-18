@@ -25,8 +25,16 @@ static void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b,
 
     float discr_square_root = sqrtf(discriminant);
 
-    *ptr_x1 = ((-1) * coef_b + discr_square_root) / (2 * coef_a);
-    *ptr_x2 = ((-1) * coef_b - discr_square_root) / (2 * coef_a);
+    float root_1 = ((-1) * coef_b + discr_square_root) / (2 * coef_a);
+    float root_2 = ((-1) * coef_b - discr_square_root) / (2 * coef_a);
+    if (is_zero(root_1))
+        *ptr_x1 = 0.0f;
+    else
+        *ptr_x1 = root_1;
+    if (is_zero(root_2))
+        *ptr_x2 = 0.0f;
+    else
+        *ptr_x2 = root_2;
 }
 
 static enum PossibleSolutionCases solve_normal_linear_equation(float * ptr_x1, float * ptr_x2, int * ptr_amount_of_roots, float coef_b, float coef_c)
@@ -35,7 +43,11 @@ static enum PossibleSolutionCases solve_normal_linear_equation(float * ptr_x1, f
     assert(ptr_x2 != NULL);
     assert(ptr_amount_of_roots != NULL);
 
-    *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
+    float root = -coef_c/coef_b;
+    if (is_zero(root))
+        *ptr_x1 = *ptr_x2 = 0.0f; //avoiding -0.0 case
+    else
+        *ptr_x1 = *ptr_x2 = -coef_c/coef_b;
     *ptr_amount_of_roots = 1;
 
     return linear_has_1_root;
