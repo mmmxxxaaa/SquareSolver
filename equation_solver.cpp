@@ -22,6 +22,8 @@ static void make_roots(float *ptr_x1, float *ptr_x2, float coef_a, float coef_b,
 {
     assert(ptr_x1 != NULL);
     assert(ptr_x2 != NULL);
+    assert(is_finite(coef_a));
+    assert(is_finite(coef_b));
 
     float discr_square_root = sqrtf(discriminant);
 
@@ -42,6 +44,9 @@ static enum PossibleSolutionCases solve_normal_linear_equation(float * ptr_x1, f
     assert(ptr_x1 != NULL);
     assert(ptr_x2 != NULL);
     assert(ptr_amount_of_roots != NULL);
+    assert(is_finite(coef_b));
+    assert(is_finite(coef_c));
+
 
     float root = -coef_c/coef_b;
     if (is_zero(root))
@@ -58,6 +63,9 @@ static enum PossibleSolutionCases solve_normal_quadratic_equation(float * ptr_x1
     assert(ptr_x1 != NULL);
     assert(ptr_x2 != NULL);
     assert(ptr_amount_of_roots != NULL);
+    assert(is_finite(coeffs.coef_a));
+    assert(is_finite(coeffs.coef_b));
+    assert(is_finite(coeffs.coef_c));
 
     float discriminant = make_discriminant(coeffs);
 
@@ -86,6 +94,9 @@ static enum PossibleSolutionCases solve_normal_quadratic_equation(float * ptr_x1
 enum PossibleSolutionCases general_solution(struct AnswerAndSolution * result, struct QuadricCoeffs coeffs)
 {
     assert(result != NULL);
+    assert(is_finite(coeffs.coef_a));
+    assert(is_finite(coeffs.coef_b));
+    assert(is_finite(coeffs.coef_c));
 
     if (is_zero(coeffs.coef_a) && is_zero(coeffs.coef_b) && is_zero(coeffs.coef_c))
         return inf_roots;
