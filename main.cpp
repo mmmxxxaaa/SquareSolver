@@ -4,6 +4,7 @@
 #include "processing.h"
 #include "equation_solver.h"
 #include "colors_codes.h"
+#include "my_static_assert.h"
 
 int main()
 {
@@ -15,6 +16,7 @@ int main()
     {
         struct QuadricCoeffs coeffs;
 
+        my_static_assert(sizeof(float) == 4);
         bool is_failed = get_coeffs(&coeffs);
         clear_input_stream();
 
