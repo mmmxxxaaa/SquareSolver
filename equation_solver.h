@@ -7,7 +7,8 @@ enum PossibleSolutionCases {
     linear_has_1_root,
     quadric_has_1_root,
     quadric_has_2_roots,
-    quadric_has_0_roots
+    quadric_has_0_roots,
+    not_initialized
 };
 
 struct QuadricCoeffs {

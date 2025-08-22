@@ -51,6 +51,11 @@ void general_output(struct AnswerAndSolution result)
             puts(GREEN "This quadratic equation does not have roots in real numbers\n" RESET);
             break;
         }
+        case not_initialized:
+        {
+            puts(RED "Error: solution case does not initialized" RESET);
+            break;
+        }
         default:
             break;
 

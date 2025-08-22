@@ -38,6 +38,7 @@ static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs
 {
     assert(ptr_x1 != NULL);
     assert(ptr_x2 != NULL);
+    assert(ptr_x1 != ptr_x2);
     assert(is_finite(coeffs.coef_a));
     assert(is_finite(coeffs.coef_b));
 
