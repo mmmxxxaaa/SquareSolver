@@ -8,7 +8,7 @@
 
 static float make_discriminant(const struct QuadricCoeffs* coeffs);
 static void make_roots(float* ptr_x1, float* ptr_x2,
-                       struct QuadricCoeffs coeffs, float discriminant);
+                       const struct QuadricCoeffs* ptr_coeffs, float discriminant);
 
 static enum SolutionType solve_normal_linear_equation(const struct QuadricCoeffs* ptr_coeffs,
                                                       struct AnswerAndSolution* ptr_result);
