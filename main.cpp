@@ -1,18 +1,16 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "processing.h"
+#include "io.h"
 #include "equation_solver.h"
 #include "colors_codes.h"
 #include "my_static_assert.h"
 
 int main()
 {
-    char stop_ch = 'w';
-
     puts(BLUE "Enter the quadratic equation coefficients in the following format: \"a b c\", "
          "where ax^2 + bx + c = 0" RESET);
-    while (stop_ch != 'q')
+    for (;;)
     {
         my_static_assert(sizeof(float) == 4);
         QuadricCoeffs coeffs = {0};
