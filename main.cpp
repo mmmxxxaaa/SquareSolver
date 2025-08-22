@@ -23,9 +23,9 @@ int main()
         if (!is_failed)
         {
             struct AnswerAndSolution result = {0};
-            result.solution_case = general_solution(&result, coeffs);
+            result.solution_case = solve_general(coeffs, &result);
 
-            general_output(result);
+            output_general(result);
         }
         if (continue_request() == -1)
             break;

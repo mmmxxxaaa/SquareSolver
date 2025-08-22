@@ -6,7 +6,7 @@
 #include "equation_solver.h"
 
 bool get_coeffs(struct QuadricCoeffs* coeffs);
-void general_output(struct AnswerAndSolution result);
+void output_general(struct AnswerAndSolution result);
 
 void clear_input_stream(void);
 int continue_request();

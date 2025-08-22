@@ -7,25 +7,28 @@
 #include "logic_functions.h"
 
 static float make_discriminant(struct QuadricCoeffs coeffs);
-static void make_roots(float* ptr_x1, float* ptr_x2, struct QuadricCoeffs coeffs, float discriminant);
+static void make_roots(float* ptr_x1, float* ptr_x2,
+                       struct QuadricCoeffs coeffs, float discriminant);
 
-static enum SolutionType solve_normal_linear_equation(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);
-static enum SolutionType solve_normal_quadratic_equation(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);
+static enum SolutionType solve_normal_linear_equation(struct QuadricCoeffs coeffs,
+                                                      struct AnswerAndSolution* result);
+static enum SolutionType solve_normal_quadratic_equation(struct QuadricCoeffs coeffs,
+                                                         struct AnswerAndSolution* result);
 
 /**
     @brief Функция отвечает за решение уравнения в общем случае и разбивает его на мелкие задачи
     @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
     @param[out] enum-значение частного случая квадратного уравнения:
-                inf_roots - бесконечное количество корней
-                no_roots - уравнения не является ни линейным, ни квадратным и у него нет корней
-                linear_has_1_root - уравнение является линейным и имеет одно решения
-                quadratic_has_1_root - уравнения является квадратным и имеет одно решение
-                quadratic_has_2_roots - уравнение является квадратным и имеет два решения
-                quadratic_has_0_roots - уравнение является квадртаным и не имеет решений
-                none - неинициализированный случай
+        SOLUTION_TYPE_INF_ROOTS - бесконечное количество корней
+        SOLUTION_TYPE_NO_ROOTS - уравнения не является ни линейным, ни квадратным и у него нет корней
+        SOLUTION_TYPE_LINEAR_HAS_1_ROOT - уравнение является линейным и имеет одно решения
+        SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT - уравнения является квадратным и имеет одно решение
+        SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS - уравнение является квадратным и имеет два решения
+        SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
+        SOLUTION_TYPE_NONE - неинициализированный случай
 **/
-enum SolutionType general_solution(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
+enum SolutionType solve_general(struct QuadricCoeffs coeffs, struct AnswerAndSolution* ptr_result)
 {
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(coeffs.a));
@@ -37,9 +40,9 @@ enum SolutionType general_solution(struct AnswerAndSolution* ptr_result, struct 
     else if (is_zero(coeffs.a) && is_zero(coeffs.b))
         return SOLUTION_TYPE_NO_ROOTS;
     else if (is_zero(coeffs.a))
-        return solve_normal_linear_equation(ptr_result, coeffs);
+        return solve_normal_linear_equation(coeffs, ptr_result);
     else
-        return solve_normal_quadratic_equation(ptr_result, coeffs);
+        return solve_normal_quadratic_equation(coeffs, ptr_result);
 }
 
 /**
@@ -59,7 +62,8 @@ static float make_discriminant(struct QuadricCoeffs coeffs)
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
     @param[in] discriminant Значение дискриминанта
 **/
-static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs, float discriminant)
+static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs,
+                       float discriminant)
 {
     MY_ASSERT(ptr_x1 != NULL);
     MY_ASSERT(ptr_x2 != NULL);
@@ -81,9 +85,10 @@ static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs
     @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
     @param[out] enum-значение частного случая квадратного уравнения:
-                linear_has_1_root - уравнение является линейным и имеет одно решения
+            SOLUTION_TYPE_LINEAR_HAS_1_ROOT - уравнение является линейным и имеет одно решения
 **/
-static enum SolutionType solve_normal_linear_equation(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
+static enum SolutionType solve_normal_linear_equation(struct QuadricCoeffs coeffs,
+                                                      struct AnswerAndSolution* ptr_result)
 {
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(coeffs.b));
@@ -101,11 +106,12 @@ static enum SolutionType solve_normal_linear_equation(struct AnswerAndSolution* 
     @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
     @param[out] enum-значение частного случая квадратного уравнения:
-                quadratic_has_1_root - уравнения является квадратным и имеет одно решение
-                quadratic_has_2_roots - уравнение является квадратным и имеет два решения
-                quadratic_has_0_roots - уравнение является квадртаным и не имеет решений
+                SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT - уравнения является квадратным и имеет одно решение
+                SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS - уравнение является квадратным и имеет два решения
+                SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
 **/
-static enum SolutionType solve_normal_quadratic_equation(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
+static enum SolutionType solve_normal_quadratic_equation(struct QuadricCoeffs coeffs,
+                                                         struct AnswerAndSolution* ptr_result)
 {
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(coeffs.a));

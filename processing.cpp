@@ -37,7 +37,7 @@ bool get_coeffs(struct QuadricCoeffs* ptr_coeffs)
 *
 *  @note Если `result.solution_case` имеет значение `not_initialized`, выводится сообщение об ошибке
 **/
-void general_output(struct AnswerAndSolution result)
+void output_general(struct AnswerAndSolution result)
 {
     switch(result.solution_case)   //advisedly added everywhere one more \n to make output more readable
     {
@@ -49,7 +49,7 @@ void general_output(struct AnswerAndSolution result)
             break;
         case SOLUTION_TYPE_LINEAR_HAS_1_ROOT:
         {
-            puts(GREEN "This is not an quadratic equation, but it is linear equation and it has one root:" RESET);
+            puts(GREEN "This is linear equation and it has one root:" RESET);
             printf(BGGREEN "x = %f" BGDEF "\n\n", result.x1);
             break;
         }
@@ -102,7 +102,8 @@ void clear_input_stream()
 **/
 int continue_request()
 {
-    puts(BLUE "Enter new quadratic quadratic equation coefficients in the following format: \"a b c\", where ax^2 + bx + c = 0" RESET);
+    puts(BLUE "Enter new quadratic quadratic equation coefficients"
+        " in the following format: \"a b c\", where ax^2 + bx + c = 0" RESET);
     puts(BLUE "Or enter 'q' to quit the program" RESET);
 
     int stop_ch = getchar();
