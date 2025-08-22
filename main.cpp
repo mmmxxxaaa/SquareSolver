@@ -15,14 +15,14 @@ int main()
     while (stop_ch != 'q')
     {
         my_static_assert(sizeof(float) == 4);
-        struct QuadricCoeffs coeffs = {0};
+        QuadricCoeffs coeffs = {0};
 
         bool is_failed = get_coeffs(&coeffs);
         clear_input_stream();
 
         if (!is_failed)
         {
-            struct AnswerAndSolution result = {0};
+            AnswerAndSolution result = {0};
             result.solution_case = solve_general(&coeffs, &result);
 
             output_general(result);

@@ -17,7 +17,7 @@
 *
 *   @note Если ввод некорректен, выводится сообщения об ошибке
 **/
-bool get_coeffs(struct QuadricCoeffs* ptr_coeffs)
+bool get_coeffs(QuadricCoeffs* ptr_coeffs)
 {
     MY_ASSERT(ptr_coeffs != NULL);
 
@@ -37,7 +37,7 @@ bool get_coeffs(struct QuadricCoeffs* ptr_coeffs)
 *
 *  @note Если `result.solution_case` имеет значение `not_initialized`, выводится сообщение об ошибке
 **/
-void output_general(struct AnswerAndSolution result)
+void output_general(AnswerAndSolution result)
 {
     switch(result.solution_case)   //advisedly added everywhere one more \n to make output more readable
     {

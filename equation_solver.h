@@ -11,18 +11,18 @@ enum SolutionType {
     SOLUTION_TYPE_NONE
 };
 
-struct QuadricCoeffs {
+typedef struct {
     float a;
     float b;
     float c;
-};
+} QuadricCoeffs;
 
-struct AnswerAndSolution {
+typedef struct {
     float x1;
     float x2;
     enum SolutionType solution_case;
-};
+} AnswerAndSolution;
 
-enum SolutionType solve_general(const struct QuadricCoeffs* ptr_coeffs, struct AnswerAndSolution* ptr_result);  // mb add right_part later
+enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, AnswerAndSolution* ptr_result);  // mb add right_part later
 
 #endif // EQUATION_SOLVER_H_
