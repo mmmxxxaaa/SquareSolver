@@ -9,7 +9,6 @@
 
 int main()
 {
-    my_assert(0);
     char stop_ch = 'w';
 
     puts(BLUE "Enter the quadratic equation coefficients in the following format: \"a b c\", "
