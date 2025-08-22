@@ -6,6 +6,8 @@
 #include "colors_codes.h"
 #include "my_assert.h"
 
+// io.h
+
 /**
 *   @brief Получает коэффициенты квадратного уравнения
 *
@@ -19,7 +21,7 @@
 **/
 bool get_coeffs(struct QuadricCoeffs* ptr_coeffs)
 {
-    my_assert(ptr_coeffs != NULL);
+    MY_ASSERT(ptr_coeffs != NULL);
 
     if (scanf("%f %f %f", &(ptr_coeffs->coef_a), &(ptr_coeffs->coef_b), &(ptr_coeffs->coef_c)) != 3)
     {
@@ -42,14 +44,14 @@ void general_output(struct AnswerAndSolution result)
     switch(result.solution_case)   //advisedly added everywhere one more \n to make output more readable
     {
         case inf_roots:
-            puts(GREEN "Any x from [-INF; +INF] is the root of this equation\n" RESET);
+            puts(GREEN "Any x from (-INF; +INF) is the root of this equation\n" RESET);
             break;
         case no_roots:
             puts(GREEN "This equation doesn't have any root\n" RESET);
             break;
         case linear_has_1_root:
         {
-            puts(GREEN "This is not an quadratic equation, but it is linear equation and it has one root:" RESET);
+            puts(GREEN "This is linear equation and it has one root:" RESET);
             printf(BGGREEN "x = %f" BGDEF "\n\n", result.x1);
             break;
         }
@@ -102,7 +104,7 @@ void clear_input_stream()
 **/
 int continue_request()
 {
-    puts(BLUE "Enter new quadratic quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0" RESET);
+    puts(BLUE "Enter new quadratic quadratic equation coefficients in the following format: \"a b c\", where ax^2 + bx + c = 0" RESET);
     puts(BLUE "Or enter 'q' to quit the program" RESET);
 
     int stop_ch = getchar();

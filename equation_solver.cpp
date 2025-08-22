@@ -1,14 +1,15 @@
-#include "equation_solver.h"
-
 #include <math.h>
 #include <stdio.h>
 
-#include "my_assert.h"
+#include "equation_solver.h"
 #include "logic_functions.h"
+#include "my_assert.h"
+
 
 static float make_discriminant(struct QuadricCoeffs coeffs);
 static void make_roots(float* ptr_x1, float* ptr_x2, struct QuadricCoeffs coeffs, float discriminant);
 
+// solve_quadratic_case
 static enum PossibleSolutionCases solve_normal_linear_equation(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);
 static enum PossibleSolutionCases solve_normal_quadratic_equation(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);
 
@@ -25,12 +26,14 @@ static enum PossibleSolutionCases solve_normal_quadratic_equation(struct AnswerA
                 quadric_has_0_roots - уравнение является квадртаным и не имеет решений
                 not_initialized - неинициализированный случай
 **/
-enum PossibleSolutionCases general_solution(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
+enum PossibleSolutionCases
+general_solution(struct AnswerAndSolution* ptr_result,
+                 struct QuadricCoeffs coeffs) // const QuadraticCoeffs* coeffs
 {
-    my_assert(ptr_result != NULL);
-    my_assert(is_finite(coeffs.coef_a));
-    my_assert(is_finite(coeffs.coef_b));
-    my_assert(is_finite(coeffs.coef_c));
+    MY_ASSERT(ptr_result != NULL); // MY_ASSERT
+    MY_ASSERT(is_finite(coeffs.coef_a));
+    MY_ASSERT(is_finite(coeffs.coef_b));
+    MY_ASSERT(is_finite(coeffs.coef_c));
 
     if (is_zero(coeffs.coef_a) && is_zero(coeffs.coef_b) && is_zero(coeffs.coef_c))
         return inf_roots;
@@ -47,6 +50,7 @@ enum PossibleSolutionCases general_solution(struct AnswerAndSolution* ptr_result
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
     @param[out] float-значение дискриминанта
 **/
+// calculate
 static float make_discriminant(struct QuadricCoeffs coeffs)
 {
     return coeffs.coef_b * coeffs.coef_b - 4 * coeffs.coef_a * coeffs.coef_c;
@@ -61,11 +65,11 @@ static float make_discriminant(struct QuadricCoeffs coeffs)
 **/
 static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs, float discriminant)
 {
-    my_assert(ptr_x1 != NULL);
-    my_assert(ptr_x2 != NULL);
-    my_assert(ptr_x1 != ptr_x2);
-    my_assert(is_finite(coeffs.coef_a));
-    my_assert(is_finite(coeffs.coef_b));
+    MY_ASSERT(ptr_x1 != NULL);
+    MY_ASSERT(ptr_x2 != NULL);
+    MY_ASSERT(ptr_x1 != ptr_x2);
+    MY_ASSERT(is_finite(coeffs.coef_a));
+    MY_ASSERT(is_finite(coeffs.coef_b));
 
     float discr_square_root = sqrtf(discriminant);
 
@@ -85,9 +89,9 @@ static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs
 **/
 static enum PossibleSolutionCases solve_normal_linear_equation(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
 {
-    my_assert(ptr_result != NULL);
-    my_assert(is_finite(coeffs.coef_b));
-    my_assert(is_finite(coeffs.coef_c));
+    MY_ASSERT(ptr_result != NULL);
+    MY_ASSERT(is_finite(coeffs.coef_b));
+    MY_ASSERT(is_finite(coeffs.coef_c));
 
     float root = -coeffs.coef_c/coeffs.coef_b;
     ptr_result->x1 = is_zero(root) ? 0.0f : root;  //avoiding -0.0 case
@@ -108,20 +112,20 @@ static enum PossibleSolutionCases solve_normal_linear_equation(struct AnswerAndS
 **/
 static enum PossibleSolutionCases solve_normal_quadratic_equation(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
 {
-    my_assert(ptr_result != NULL);
-    my_assert(is_finite(coeffs.coef_a));
-    my_assert(is_finite(coeffs.coef_b));
-    my_assert(is_finite(coeffs.coef_c));
+    MY_ASSERT(ptr_result != NULL);
+    MY_ASSERT(is_finite(coeffs.coef_a));
+    MY_ASSERT(is_finite(coeffs.coef_b));
+    MY_ASSERT(is_finite(coeffs.coef_c));
 
     float discriminant = make_discriminant(coeffs);
 
     if (discriminant < 0)
     {
         ptr_result->amount_of_roots = 0;
-
         return quadric_has_0_roots;
     }
-    else if (is_zero(discriminant))
+
+    if (is_zero(discriminant))
     {
         make_roots(&(ptr_result->x1), &(ptr_result->x2), coeffs, fabs(discriminant));
         ptr_result->amount_of_roots = 1;
