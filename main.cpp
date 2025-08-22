@@ -8,16 +8,17 @@
 
 int main()
 {
+    char stop_ch = 'w';
+
     puts(BLUE "Enter the quadratic equation coefficients in the following format: \"a b c\", "
          "where ax^2 + bx + c = 0" RESET);
-
-    for (;;)
+    while (stop_ch != 'q')
     {
         my_static_assert(sizeof(float) == 4);
         struct QuadricCoeffs coeffs = {0};
 
         bool is_failed = get_coeffs(&coeffs);
-        clear_input_stream(); //
+        clear_input_stream();
 
         if (!is_failed)
         {
@@ -30,4 +31,3 @@ int main()
             break;
     }
 }
-

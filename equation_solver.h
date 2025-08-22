@@ -1,39 +1,28 @@
 #ifndef EQUATION_SOLVER_H_
 #define EQUATION_SOLVER_H_
 
-// header guard
-
-// SolutionType
-enum PossibleSolutionCases {
-// SOLUTION_TYPE_INF_ROOTS
-// SOLUTION_TYPE_NONE
-    inf_roots,
-    no_roots,
-    linear_has_1_root,
-    quadric_has_1_root,
-    quadric_has_2_roots,
-    quadric_has_0_roots,
-    not_initialized
+enum SolutionType {
+    SOLUTION_TYPE_INF_ROOTS,
+    SOLUTION_TYPE_NO_ROOTS,
+    SOLUTION_TYPE_LINEAR_HAS_1_ROOT,
+    SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT,
+    SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS,
+    SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS,
+    SOLUTION_TYPE_NONE
 };
 
-// QuadraticCoeffs
-typedef struct {
-    float coef_a; // a
-    float coef_b; // coeffs.a
-    float coef_c;
-} QuadricCoeffs;
+struct QuadricCoeffs {
+    float a;
+    float b;
+    float c;
+};
 
-// Solution
 struct AnswerAndSolution {
     float x1;
     float x2;
-    int amount_of_roots; // ?
-    enum PossibleSolutionCases solution_case;
+    enum SolutionType solution_case;
 };
 
-// fscanf -- scan formatted
-// solve/find_solution/solve_equation/solve_general/solve_quadratic_equation()
-enum PossibleSolutionCases general_solution(struct AnswerAndSolution* result,
-                                            struct QuadricCoeffs coeffs);  // mb add right_part later
+enum SolutionType general_solution(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);  // mb add right_part later
 
 #endif // EQUATION_SOLVER_H_
