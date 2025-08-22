@@ -1,13 +1,25 @@
 #include "processing.h"
-#include "colors_codes.h"
 
 #include <stdio.h>
 #include <stdbool.h>
-#include <assert.h>
 
+#include "colors_codes.h"
+#include "my_assert.h"
+
+/**
+*   @brief Получает коэффициенты квадратного уравнения
+*
+*   @param[in] Указатель на структуру, куда будут считаны коэффициенты
+*
+*   @return[out] Признак ошибки ввода:
+*                true - произошла ошибка ввода (считано меньше 3 значений)
+*                false - коэффициенты успешно считаны и записаны в структуру
+*
+*   @note Если ввод некорректен, выводится сообщения об ошибке
+**/
 bool get_coeffs(struct QuadricCoeffs* ptr_coeffs)
 {
-    assert(ptr_coeffs != NULL);
+    my_assert(ptr_coeffs != NULL);
 
     if (scanf("%f %f %f", &(ptr_coeffs->coef_a), &(ptr_coeffs->coef_b), &(ptr_coeffs->coef_c)) != 3)
     {
@@ -18,6 +30,13 @@ bool get_coeffs(struct QuadricCoeffs* ptr_coeffs)
         return false;
 }
 
+/**
+*  @brief Выводит результат решения квадратного уравнения с цветовым оформлением
+*
+*  @param[in] result Структура AnswerAndSolution, содержащая данные о решении уравнения
+*
+*  @note Если `result.solution_case` имеет значение `not_initialized`, выводится сообщение об ошибке
+**/
 void general_output(struct AnswerAndSolution result)
 {
     switch(result.solution_case)   //advisedly added everywhere one more \n to make output more readable
@@ -63,6 +82,9 @@ void general_output(struct AnswerAndSolution result)
     }
 }
 
+/**
+*   @brief Функция очищает входной поток
+**/
 void clear_input_stream()
 {
     int ch;
@@ -71,6 +93,13 @@ void clear_input_stream()
         continue;
 }
 
+/**
+*   @brief Функция спрашивает у пользователя, желает ли он продолжить ввод
+*
+*   @return Признак окончания ввода:
+*           1 - пользователь желает продолжить ввод
+*           -1 - пользователь желает прекратить ввод
+**/
 int continue_request()
 {
     puts(BLUE "Enter new quadratic quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0" RESET);

@@ -5,7 +5,6 @@
 #include "equation_solver.h"
 #include "colors_codes.h"
 #include "my_static_assert.h"
-#include "my_assert.h"
 
 int main()
 {

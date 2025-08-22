@@ -2,8 +2,8 @@
 
 #include <math.h>
 #include <stdio.h>
-#include <assert.h>
 
+#include "my_assert.h"
 #include "logic_functions.h"
 
 static float make_discriminant(struct QuadricCoeffs coeffs);
@@ -12,12 +12,25 @@ static void make_roots(float* ptr_x1, float* ptr_x2, struct QuadricCoeffs coeffs
 static enum PossibleSolutionCases solve_normal_linear_equation(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);
 static enum PossibleSolutionCases solve_normal_quadratic_equation(struct AnswerAndSolution* result, struct QuadricCoeffs coeffs);
 
+/**
+    @brief Функция отвечает за решение уравнения в общем случае и разбивает его на мелкие задачи
+    @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
+    @param[in] coeffs Структура с коэффициентами квадратного уравнения
+    @param[out] enum-значение частного случая квадратного уравнения:
+                inf_roots - бесконечное количество корней
+                no_roots - уравнения не является ни линейным, ни квадратным и у него нет корней
+                linear_has_1_root - уравнение является линейным и имеет одно решения
+                quadric_has_1_root - уравнения является квадратным и имеет одно решение
+                quadric_has_2_roots - уравнение является квадратным и имеет два решения
+                quadric_has_0_roots - уравнение является квадртаным и не имеет решений
+                not_initialized - неинициализированный случай
+**/
 enum PossibleSolutionCases general_solution(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
 {
-    assert(ptr_result != NULL);
-    assert(is_finite(coeffs.coef_a));
-    assert(is_finite(coeffs.coef_b));
-    assert(is_finite(coeffs.coef_c));
+    my_assert(ptr_result != NULL);
+    my_assert(is_finite(coeffs.coef_a));
+    my_assert(is_finite(coeffs.coef_b));
+    my_assert(is_finite(coeffs.coef_c));
 
     if (is_zero(coeffs.coef_a) && is_zero(coeffs.coef_b) && is_zero(coeffs.coef_c))
         return inf_roots;
@@ -29,18 +42,30 @@ enum PossibleSolutionCases general_solution(struct AnswerAndSolution* ptr_result
         return solve_normal_quadratic_equation(ptr_result, coeffs);
 }
 
+/**
+    @brief Функция отвечает за нахождение дискриминанта квадратного уравнения
+    @param[in] coeffs Структура с коэффициентами квадратного уравнения
+    @param[out] float-значение дискриминанта
+**/
 static float make_discriminant(struct QuadricCoeffs coeffs)
 {
     return coeffs.coef_b * coeffs.coef_b - 4 * coeffs.coef_a * coeffs.coef_c;
 }
 
+/**
+    @brief Функция отвечает за расчёт корней уравнения
+    @param[in] ptr_x1 Указатель на переменную, хранящую первый корень
+    @param[in] ptr_x2 Указатель на переменную, хранящую первый корень
+    @param[in] coeffs Структура с коэффициентами квадратного уравнения
+    @param[in] discriminant Значение дискриминанта
+**/
 static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs, float discriminant)
 {
-    assert(ptr_x1 != NULL);
-    assert(ptr_x2 != NULL);
-    assert(ptr_x1 != ptr_x2);
-    assert(is_finite(coeffs.coef_a));
-    assert(is_finite(coeffs.coef_b));
+    my_assert(ptr_x1 != NULL);
+    my_assert(ptr_x2 != NULL);
+    my_assert(ptr_x1 != ptr_x2);
+    my_assert(is_finite(coeffs.coef_a));
+    my_assert(is_finite(coeffs.coef_b));
 
     float discr_square_root = sqrtf(discriminant);
 
@@ -51,11 +76,18 @@ static void make_roots(float *ptr_x1, float *ptr_x2, struct QuadricCoeffs coeffs
     *ptr_x2 = is_zero(root_2) ? 0.0f : root_2;
 }
 
+/**
+    @brief Функция отвечает за решение уравнения в случае, когда оно линейное
+    @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
+    @param[in] coeffs Структура с коэффициентами квадратного уравнения
+    @param[out] enum-значение частного случая квадратного уравнения:
+                linear_has_1_root - уравнение является линейным и имеет одно решения
+**/
 static enum PossibleSolutionCases solve_normal_linear_equation(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
 {
-    assert(ptr_result != NULL);
-    assert(is_finite(coeffs.coef_b));
-    assert(is_finite(coeffs.coef_c));
+    my_assert(ptr_result != NULL);
+    my_assert(is_finite(coeffs.coef_b));
+    my_assert(is_finite(coeffs.coef_c));
 
     float root = -coeffs.coef_c/coeffs.coef_b;
     ptr_result->x1 = is_zero(root) ? 0.0f : root;  //avoiding -0.0 case
@@ -65,12 +97,21 @@ static enum PossibleSolutionCases solve_normal_linear_equation(struct AnswerAndS
     return linear_has_1_root;
 }
 
+/**
+    @brief Функция отвечает за решение уравнения в общем случае и разбивает его на мелкие задачи
+    @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
+    @param[in] coeffs Структура с коэффициентами квадратного уравнения
+    @param[out] enum-значение частного случая квадратного уравнения:
+                quadric_has_1_root - уравнения является квадратным и имеет одно решение
+                quadric_has_2_roots - уравнение является квадратным и имеет два решения
+                quadric_has_0_roots - уравнение является квадртаным и не имеет решений
+**/
 static enum PossibleSolutionCases solve_normal_quadratic_equation(struct AnswerAndSolution* ptr_result, struct QuadricCoeffs coeffs)
 {
-    assert(ptr_result != NULL);
-    assert(is_finite(coeffs.coef_a));
-    assert(is_finite(coeffs.coef_b));
-    assert(is_finite(coeffs.coef_c));
+    my_assert(ptr_result != NULL);
+    my_assert(is_finite(coeffs.coef_a));
+    my_assert(is_finite(coeffs.coef_b));
+    my_assert(is_finite(coeffs.coef_c));
 
     float discriminant = make_discriminant(coeffs);
 
