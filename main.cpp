@@ -23,7 +23,7 @@ int main()
         if (!is_failed)
         {
             struct AnswerAndSolution result = {0};
-            result.solution_case = solve_general(coeffs, &result);
+            result.solution_case = solve_general(&coeffs, &result);
 
             output_general(result);
         }
