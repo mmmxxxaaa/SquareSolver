@@ -15,6 +15,11 @@ bool is_zero(float number)
     return fabsf(number) < epsilon;
 }
 
+bool is_equal(float number_1, float number_2)
+{
+    return is_zero(number_1 - number_2);
+}
+
 bool is_nan(float number)
 {
     return number != number;

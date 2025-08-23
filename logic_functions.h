@@ -11,6 +11,16 @@
 bool is_zero(float number);
 
 /**
+    @brief Функция проверяет, равны ли переданные ей числа типа float
+    @param[in] number_1 Первое число типа float
+    @param[in] number_2 Число типа float, с которым сравниваем первое число типа float
+    @param[out] bool-значение проверки:
+                1-числа равны
+                0-числа не равны
+**/
+bool is_equal(float number_1, float number_2);
+
+/**
     @brief Функция проверяет, является ли NaN переданное ей число
     @param[in] number Число типа float, которое нужно проверить на NaN
     @param[out] bool-значение проверки:

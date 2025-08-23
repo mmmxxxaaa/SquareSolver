@@ -9,8 +9,6 @@
 
 #include "my_assert.h"
 
-// FIXME основное: пиши тесты
-
 int main()
 {
     global_test();
