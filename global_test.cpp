@@ -27,9 +27,6 @@ void global_test(void)
     test_is_finite(NAN, 0);
     test_is_finite(INFINITY, 0);
 
-    QuadricCoeffs check{0, 0, 0};
-    AnswerAndSolution result{0, 0, SOLUTION_TYPE_NONE};
-    test_solve_general(&check, &result, 0, 0, SOLUTION_TYPE_NONE);
-
+    test_solve_general_simplified(0, 0, 0,       0, 0, SOLUTION_TYPE_INF_ROOTS);
 
 }
