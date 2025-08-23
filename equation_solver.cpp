@@ -7,8 +7,6 @@
 #include "logic_functions.h"
 
 static float make_discriminant(const QuadricCoeffs* coeffs);
-static void make_roots(float* ptr_x1, float* ptr_x2,
-                       const QuadricCoeffs* ptr_coeffs, float discriminant);
 
 static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* ptr_coeffs,
                                                       AnswerAndSolution* ptr_result);
@@ -56,31 +54,6 @@ static float make_discriminant(const QuadricCoeffs* ptr_coeffs)
 }
 
 /**
-    @brief Функция отвечает за расчёт корней уравнения
-    @param[in] ptr_x1 Указатель на переменную, хранящую первый корень
-    @param[in] ptr_x2 Указатель на переменную, хранящую первый корень
-    @param[in] coeffs Структура с коэффициентами квадратного уравнения
-    @param[in] discriminant Значение дискриминанта
-**/
-static void make_roots(float *ptr_x1, float *ptr_x2, const QuadricCoeffs* ptr_coeffs,
-                       float discriminant)
-{
-    MY_ASSERT(ptr_x1 != NULL);
-    MY_ASSERT(ptr_x2 != NULL);
-    MY_ASSERT(ptr_x1 != ptr_x2);
-    MY_ASSERT(is_finite(ptr_coeffs->a));
-    MY_ASSERT(is_finite(ptr_coeffs->b));
-
-    float discr_square_root = sqrtf(discriminant);
-
-    float root_1 = ((-1) * ptr_coeffs->b + discr_square_root) / (2 * ptr_coeffs->a);
-    float root_2 = ((-1) * ptr_coeffs->b - discr_square_root) / (2 * ptr_coeffs->a);
-
-    *ptr_x1 = is_zero(root_1) ? 0.0f : root_1;
-    *ptr_x2 = is_zero(root_2) ? 0.0f : root_2;
-}
-
-/**
     @brief Функция отвечает за решение уравнения в случае, когда оно линейное
     @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
@@ -106,9 +79,9 @@ static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* coeff
     @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
     @param[out] enum-значение частного случая квадратного уравнения:
-                SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT - уравнения является квадратным и имеет одно решение
-                SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS - уравнение является квадратным и имеет два решения
-                SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
+        SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT - уравнения является квадратным и имеет одно решение
+        SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS - уравнение является квадратным и имеет два решения
+        SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
 **/
 static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
                                                          AnswerAndSolution* ptr_result)
@@ -122,7 +95,16 @@ static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* pt
 
     if (discriminant < 0)
         return SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS;
-    make_roots(&(ptr_result->x1), &(ptr_result->x2), ptr_coeffs, fabs(discriminant));
+
+    float discr_square_root = sqrtf(discriminant);
+
+    float root_1 = ((-1) * ptr_coeffs->b + discr_square_root) / (2 * ptr_coeffs->a);
+    float root_2 = ((-1) * ptr_coeffs->b - discr_square_root) / (2 * ptr_coeffs->a);
+
+    ptr_result->x1 = is_zero(root_1) ? 0.0f : root_1;
+    ptr_result->x2 = is_zero(root_2) ? 0.0f : root_2;
+
+    //make_roots(&(ptr_result->x1), &(ptr_result->x2), ptr_coeffs, fabs(discriminant));
     if (is_zero(discriminant))
         return SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT;
     else

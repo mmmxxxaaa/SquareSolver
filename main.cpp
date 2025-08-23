@@ -5,9 +5,15 @@
 #include "equation_solver.h"
 #include "colors_codes.h"
 #include "my_static_assert.h"
+#include "logic_functions_test.h"
+#include "equation_solver_test.h"
 
 int main()
 {
+    test_is_zero_1();
+    test_is_zero_2();
+    test_solve_general_1();
+
     puts(BLUE "Enter the quadratic equation coefficients in the following format: \"a b c\", "
          "where ax^2 + bx + c = 0" RESET);
     for (;;)
