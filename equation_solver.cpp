@@ -6,26 +6,35 @@
 #include "my_assert.h"
 #include "logic_functions.h"
 
+/**
+    @brief Функция отвечает за нахождение дискриминанта квадратного уравнения
+    @param[in] coeffs Структура с коэффициентами квадратного уравнения
+    @param[out] float-значение дискриминанта
+**/
 static float make_discriminant(const QuadricCoeffs* coeffs);
 
+/**
+    @brief Функция отвечает за решение уравнения в случае, когда оно линейное
+    @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
+    @param[in] coeffs Структура с коэффициентами квадратного уравнения
+    @param[out] enum-значение частного случая квадратного уравнения:
+            SOLUTION_TYPE_LINEAR_HAS_1_ROOT - уравнение является линейным и имеет одно решения
+**/
 static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* ptr_coeffs,
                                                       AnswerAndSolution* ptr_result);
-static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
-                                                         AnswerAndSolution* ptr_result);
 
 /**
     @brief Функция отвечает за решение уравнения в общем случае и разбивает его на мелкие задачи
     @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
     @param[in] coeffs Структура с коэффициентами квадратного уравнения
     @param[out] enum-значение частного случая квадратного уравнения:
-        SOLUTION_TYPE_INF_ROOTS - бесконечное количество корней
-        SOLUTION_TYPE_NO_ROOTS - уравнения не является ни линейным, ни квадратным и у него нет корней
-        SOLUTION_TYPE_LINEAR_HAS_1_ROOT - уравнение является линейным и имеет одно решения
         SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT - уравнения является квадратным и имеет одно решение
         SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS - уравнение является квадратным и имеет два решения
         SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
-        SOLUTION_TYPE_NONE - неинициализированный случай
 **/
+static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
+                                                         AnswerAndSolution* ptr_result);
+
 enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, AnswerAndSolution* ptr_result)
 {
     MY_ASSERT(ptr_result != NULL);
@@ -43,23 +52,11 @@ enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, AnswerAndSoluti
         return solve_normal_quadratic_equation(ptr_coeffs, ptr_result);
 }
 
-/**
-    @brief Функция отвечает за нахождение дискриминанта квадратного уравнения
-    @param[in] coeffs Структура с коэффициентами квадратного уравнения
-    @param[out] float-значение дискриминанта
-**/
 static float make_discriminant(const QuadricCoeffs* ptr_coeffs)
 {
     return (ptr_coeffs->b) * (ptr_coeffs->b) - 4 * (ptr_coeffs->a) * (ptr_coeffs->c);
 }
 
-/**
-    @brief Функция отвечает за решение уравнения в случае, когда оно линейное
-    @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
-    @param[in] coeffs Структура с коэффициентами квадратного уравнения
-    @param[out] enum-значение частного случая квадратного уравнения:
-            SOLUTION_TYPE_LINEAR_HAS_1_ROOT - уравнение является линейным и имеет одно решения
-**/
 static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* coeffs,
                                                       AnswerAndSolution* ptr_result)
 {
@@ -74,15 +71,6 @@ static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* coeff
     return SOLUTION_TYPE_LINEAR_HAS_1_ROOT;
 }
 
-/**
-    @brief Функция отвечает за решение уравнения в общем случае и разбивает его на мелкие задачи
-    @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением
-    @param[in] coeffs Структура с коэффициентами квадратного уравнения
-    @param[out] enum-значение частного случая квадратного уравнения:
-        SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT - уравнения является квадратным и имеет одно решение
-        SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS - уравнение является квадратным и имеет два решения
-        SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
-**/
 static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
                                                          AnswerAndSolution* ptr_result)
 {
@@ -104,7 +92,6 @@ static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* pt
     ptr_result->x1 = is_zero(root_1) ? 0.0f : root_1;
     ptr_result->x2 = is_zero(root_2) ? 0.0f : root_2;
 
-    //make_roots(&(ptr_result->x1), &(ptr_result->x2), ptr_coeffs, fabs(discriminant));
     if (is_zero(discriminant))
         return SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT;
     else

@@ -1,8 +1,16 @@
 #ifndef MY_ASSERT_H_
 #define MY_ASSERT_H
 
-#define MY_ASSERT(constant_expression) my_assert_function(constant_expression, __FILE__, __LINE__)
+#define MY_ASSERT(expression) my_assert_function(expression, #expression, __FILE__, __LINE__)
 
-void my_assert_function(int constant_expression, const char* name_of_file, int number_of_line);
+/**
+    @brief Используется в макросе my_assert.
 
-#endif
+    @param[in] constant_expression Константное выражение, значение которого мы проверяем
+    @param[in] ptr_name_of_file Указатель на название файла, в котором вызывается функция
+    @param[in] number_of_line Номер строки, в которой вызывается функция
+
+**/
+void my_assert_function(int expression, const char* expression_string, const char* name_of_file, int number_of_line);
+
+#endif // MY_ASSERT_H_
