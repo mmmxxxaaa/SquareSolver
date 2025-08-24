@@ -9,13 +9,13 @@
 
 #include "my_assert.h"
 
-// TODO -
-
+// FIXME argc argv
 int main()
 {
     global_test();
 
     //MY_ASSERT("Poltorashka" == "dog");
+    //MY_ASSERT_WITH_MESSAGE(0 == 1, "переделывай");
 
     puts(BLUE "Enter the quadratic equation coefficients in the following format: \"a b c\", "
          "where ax^2 + bx + c = 0" RESET);
@@ -24,12 +24,12 @@ int main()
         my_static_assert(sizeof(float) == 4);
         QuadricCoeffs coeffs = {0};
 
-        bool is_failed = get_coeffs(&coeffs);
+        bool got_success = get_coeffs(&coeffs);
         clear_input_stream();
 
-        if (!is_failed)
+        if (got_success)
         {
-            AnswerAndSolution result = {0};
+            RootsAndCase result = {0};
             result.solution_case = solve_general(&coeffs, &result);
 
             output_general(result);

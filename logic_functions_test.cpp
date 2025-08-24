@@ -16,7 +16,8 @@ void test_is_equal(float number_1, float number_2, bool expecting_value)
 {
     bool check = is_equal(number_1, number_2);
     if (check != expecting_value)
-        printf("FAILED: is_equal(%f, %f) -> %d (should be %d)\n", number_1, number_2, check, expecting_value);
+        printf("FAILED: is_equal(%f, %f) -> %d (should be %d)\n",
+            number_1, number_2, check, expecting_value);
 }
 
 void test_is_nan(float number, bool expecting_value)

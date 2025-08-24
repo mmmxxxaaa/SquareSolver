@@ -7,8 +7,7 @@
 
 #include "equation_solver.h"
 
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ (void)
-void global_test(void)
+void global_test()
 {
     test_is_zero(0.4f, 0);
     test_is_zero(4e-12f, 1);
@@ -30,12 +29,17 @@ void global_test(void)
     test_is_finite(NAN, 0);
     test_is_finite(INFINITY, 0);
 
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ - побольше пжпжпжпжп
-// Добавь структуру, содержащую две эти структуры типо struct Test и сделай один большой массив
-    QuadricCoeffs many_tests_coeffs[] = {{0, 0, 0}, {0, 0, 1}};
-    AnswerAndSolution many_tests_results[] = {{0, 0, SOLUTION_TYPE_INF_ROOTS}, {0, 0, SOLUTION_TYPE_NO_ROOTS}};
-    int amount_of_tests = sizeof(many_tests_coeffs) / sizeof(many_tests_coeffs[0]);
+    Test many_tests[] = {
+        {{0,  0, 0}, { 0,  0, SOLUTION_TYPE_INF_ROOTS            }},
+        {{0,  0, 1}, { 0,  0, SOLUTION_TYPE_NO_ROOTS             }},
+        {{0,  1, 0}, { 0,  0, SOLUTION_TYPE_LINEAR_HAS_1_ROOT    }},
+        {{1,  0, 0}, { 0,  0, SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT }},
+        {{1,  2, 1}, {-1, -1, SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT }},
+        {{1, -5, 6}, { 3,  2, SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS}}
+    };
 
-    for (int i = 0; i < amount_of_tests - 1; i++)
-        test_solve_general(many_tests_coeffs[i], many_tests_results[i]);
+    int amount_of_tests = sizeof(many_tests) / sizeof(many_tests[0]);
+
+    for (int i = 0; i < amount_of_tests; i++)
+        test_solve_general(many_tests[i].tests_coeffs, many_tests[i].tests_results);
 }

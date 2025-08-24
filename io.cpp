@@ -12,16 +12,17 @@ bool get_coeffs(QuadricCoeffs* ptr_coeffs)
     MY_ASSERT(ptr_coeffs != NULL);
     if (scanf("%f %f %f", &(ptr_coeffs->a), &(ptr_coeffs->b), &(ptr_coeffs->c)) != 3)
     {
-        puts(RED BOLD "Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n" RESET RESET);
-        return true; // ХУЙНЯ ПЕРЕДЕЛЫВАЙ результат странный
+        puts(RED BOLD "Wrong input. Please, enter the quadratic equation coefficients in the "
+            "following format: \"a b c\", where ax^2 +- bx +- c = 0\n" RESET RESET);
+        return false;
     }
     else
-        return false;
+        return true;
 }
 
-void output_general(AnswerAndSolution result)
+void output_general(RootsAndCase result)
 {
-    switch(result.solution_case)   //advisedly added everywhere one more \n to make output more readable
+    switch(result.solution_case)   //added everywhere one more \n to make output more readable
     {
         case SOLUTION_TYPE_INF_ROOTS:
             puts(GREEN "Any x from [-INF; +INF] is the root of this equation\n" RESET);

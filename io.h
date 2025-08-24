@@ -21,17 +21,16 @@ bool get_coeffs(QuadricCoeffs* ptr_coeffs);
 /**
 *  @brief Выводит результат решения квадратного уравнения с цветовым оформлением
 *
-*  @param[in] result Структура AnswerAndSolution, содержащая данные о решении уравнения
+*  @param[in] result Структура RootsAndCase, содержащая данные о решении уравнения
 *
 *  @note Если `result.solution_case` имеет значение `not_initialized`, выводится сообщение об ошибке
 **/
-void output_general(AnswerAndSolution result);
+void output_general(RootsAndCase result);
 
 /**
 *   @brief Функция очищает входной поток
 **/
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ - даже в теле функции нет этого ебучего (void)
-void clear_input_stream(void);
+void clear_input_stream();
 
 /**
 *   @brief Функция спрашивает у пользователя, желает ли он продолжить ввод

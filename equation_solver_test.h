@@ -3,6 +3,6 @@
 
 #include "equation_solver.h"
 
-void test_solve_general(QuadricCoeffs coeffs, AnswerAndSolution ideal_result);
+void test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result);
 
 #endif // EQUATION_SOLVER_TEST_H_

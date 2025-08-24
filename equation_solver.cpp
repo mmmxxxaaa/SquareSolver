@@ -20,8 +20,8 @@ static float make_discriminant(const QuadricCoeffs* coeffs);
     @param[out] enum-значение частного случая квадратного уравнения:
             SOLUTION_TYPE_LINEAR_HAS_1_ROOT - уравнение является линейным и имеет одно решения
 **/
-static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* ptr_coeffs,
-                                                      AnswerAndSolution* ptr_result);
+static enum SolutionType solve_linear_equation(const QuadricCoeffs* ptr_coeffs,
+                                                      RootsAndCase* ptr_result);
 
 /**
     @brief Функция отвечает за решение уравнения в общем случае и разбивает его на мелкие задачи
@@ -32,12 +32,12 @@ static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* ptr_c
         SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS - уравнение является квадратным и имеет два решения
         SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
 **/
-static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
-                                                         AnswerAndSolution* ptr_result);
+static enum SolutionType solve_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
+                                                         RootsAndCase* ptr_result);
 
-enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, AnswerAndSolution* ptr_result)
+enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* ptr_result)
 {
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ ptr_coeffs != NULL?
+    MY_ASSERT(ptr_coeffs != NULL);
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(ptr_coeffs->a));
     MY_ASSERT(is_finite(ptr_coeffs->b));
@@ -48,37 +48,40 @@ enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, AnswerAndSoluti
     else if (is_zero(ptr_coeffs->a) && is_zero(ptr_coeffs->b))
         return SOLUTION_TYPE_NO_ROOTS;
     else if (is_zero(ptr_coeffs->a))
-        return solve_normal_linear_equation(ptr_coeffs, ptr_result);
+        return solve_linear_equation(ptr_coeffs, ptr_result);
     else
-        return solve_normal_quadratic_equation(ptr_coeffs, ptr_result);
+        return solve_quadratic_equation(ptr_coeffs, ptr_result);
 }
 
 static float make_discriminant(const QuadricCoeffs* ptr_coeffs)
 {
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ - где все ассерты? Ты ахуел?
+    MY_ASSERT(ptr_coeffs != NULL);
+    MY_ASSERT(is_finite(ptr_coeffs->a));
+    MY_ASSERT(is_finite(ptr_coeffs->b));
+    MY_ASSERT(is_finite(ptr_coeffs->c));
+
     return (ptr_coeffs->b) * (ptr_coeffs->b) - 4 * (ptr_coeffs->a) * (ptr_coeffs->c);
 }
 
-static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* coeffs,
-                                                      AnswerAndSolution* ptr_result)
+static enum SolutionType solve_linear_equation(const QuadricCoeffs* ptr_coeffs,
+                                                     RootsAndCase* ptr_result)
 {
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ ptr_coeffs != NULL? И почему везде ptr_coeffs, а тут coeffs?
+    MY_ASSERT(ptr_coeffs != NULL);
     MY_ASSERT(ptr_result != NULL);
-    MY_ASSERT(is_finite(coeffs->b));
-    MY_ASSERT(is_finite(coeffs->c));
+    MY_ASSERT(is_finite(ptr_coeffs->b));
+    MY_ASSERT(is_finite(ptr_coeffs->c));
 
-    float root = -coeffs->c/coeffs->b;
+    float root = -ptr_coeffs->c/ptr_coeffs->b;
     ptr_result->x1 = is_zero(root) ? 0.0f : root;  //avoiding -0.0 case
     ptr_result->x2 = ptr_result->x1;
 
     return SOLUTION_TYPE_LINEAR_HAS_1_ROOT;
 }
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ Слово normal
-static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
-                                                         AnswerAndSolution* ptr_result)
+
+static enum SolutionType solve_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
+                                                        RootsAndCase* ptr_result)
 {
-// ХУЙНЯ ПЕРЕДЕЛЫВАЙ where is_nan? It's everywhere
-// ptr_coeffs != NULL?
+    MY_ASSERT(ptr_coeffs != NULL);
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(ptr_coeffs->a));
     MY_ASSERT(is_finite(ptr_coeffs->b));
@@ -94,6 +97,14 @@ static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* pt
     float root_1 = ((-1) * ptr_coeffs->b + discr_square_root) / (2 * ptr_coeffs->a);
     float root_2 = ((-1) * ptr_coeffs->b - discr_square_root) / (2 * ptr_coeffs->a);
 
+    //ДЕЛО СДЕЛАНО
+    if (root_1 < root_2) //нужно для упрощения тестов (первый ожидаемый вводимый корень наибольший)
+    {
+        float tmp = root_1;
+        root_1 = root_2;
+        root_2 = tmp;
+        printf("%f %f \n", root_1, root_2);
+    }
     ptr_result->x1 = is_zero(root_1) ? 0.0f : root_1;
     ptr_result->x2 = is_zero(root_2) ? 0.0f : root_2;
 
