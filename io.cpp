@@ -13,7 +13,7 @@ bool get_coeffs(QuadricCoeffs* ptr_coeffs)
     if (scanf("%f %f %f", &(ptr_coeffs->a), &(ptr_coeffs->b), &(ptr_coeffs->c)) != 3)
     {
         puts(RED BOLD "Wrong input. Please, enter the quadratic equation coefficients in the following format: \"a b c\", where ax^2 +- bx +- c = 0\n" RESET RESET);
-        return true;
+        return true; // ХУЙНЯ ПЕРЕДЕЛЫВАЙ результат странный
     }
     else
         return false;

@@ -37,6 +37,7 @@ static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* pt
 
 enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, AnswerAndSolution* ptr_result)
 {
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ ptr_coeffs != NULL?
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(ptr_coeffs->a));
     MY_ASSERT(is_finite(ptr_coeffs->b));
@@ -54,12 +55,14 @@ enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, AnswerAndSoluti
 
 static float make_discriminant(const QuadricCoeffs* ptr_coeffs)
 {
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ - где все ассерты? Ты ахуел?
     return (ptr_coeffs->b) * (ptr_coeffs->b) - 4 * (ptr_coeffs->a) * (ptr_coeffs->c);
 }
 
 static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* coeffs,
                                                       AnswerAndSolution* ptr_result)
 {
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ ptr_coeffs != NULL? И почему везде ptr_coeffs, а тут coeffs?
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(coeffs->b));
     MY_ASSERT(is_finite(coeffs->c));
@@ -70,10 +73,12 @@ static enum SolutionType solve_normal_linear_equation(const QuadricCoeffs* coeff
 
     return SOLUTION_TYPE_LINEAR_HAS_1_ROOT;
 }
-
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ Слово normal
 static enum SolutionType solve_normal_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
                                                          AnswerAndSolution* ptr_result)
 {
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ where is_nan? It's everywhere
+// ptr_coeffs != NULL?
     MY_ASSERT(ptr_result != NULL);
     MY_ASSERT(is_finite(ptr_coeffs->a));
     MY_ASSERT(is_finite(ptr_coeffs->b));

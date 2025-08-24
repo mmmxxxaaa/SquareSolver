@@ -4,10 +4,10 @@
 
 #include "equation_solver.h"
 #include "logic_functions.h"
-
-// FIXME ожидание через структуру (done), вынести is_equal (done), сделай массив тестов (done)
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ - ideal or expected?
 void test_solve_general(QuadricCoeffs coeffs, AnswerAndSolution ideal_result)
 {
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ net assert na float
     AnswerAndSolution calculated_result;
     enum SolutionType check_case = solve_general(&coeffs, &calculated_result);
     int flag = 1;

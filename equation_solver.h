@@ -21,8 +21,8 @@ typedef struct {
     float x1;
     float x2;
     enum SolutionType solution_case;
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ нэйминг
 } AnswerAndSolution;
-
 /**
     @brief Функция отвечает за решение уравнения в общем случае и разбивает его на мелкие задачи
     @param[in] ptr_result Указатель на структуру, в которой хранится всё, связанное с решением

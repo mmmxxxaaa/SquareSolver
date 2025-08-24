@@ -1,6 +1,6 @@
 #ifndef MY_ASSERT_H_
-#define MY_ASSERT_H
-
+#define MY_ASSERT_H_
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ - добавь сообщение для вывода объяснения, на случай, если упадёт ассерт
 #define MY_ASSERT(expression) my_assert_function(expression, #expression, __FILE__, __LINE__)
 
 /**

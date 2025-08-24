@@ -30,6 +30,7 @@ void output_general(AnswerAndSolution result);
 /**
 *   @brief Функция очищает входной поток
 **/
+// ХУЙНЯ ПЕРЕДЕЛЫВАЙ - даже в теле функции нет этого ебучего (void)
 void clear_input_stream(void);
 
 /**
