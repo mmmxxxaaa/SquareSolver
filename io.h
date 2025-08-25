@@ -41,4 +41,7 @@ void clear_input_stream();
 **/
 int continue_request();
 
+
+bool search_flag(const char* name_of_flag, const int amount_of_input, const char** input);
+
 #endif // PROCESSING_H_

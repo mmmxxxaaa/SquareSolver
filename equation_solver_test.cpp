@@ -5,8 +5,9 @@
 #include "equation_solver.h"
 #include "logic_functions.h"
 #include "my_assert.h"
+#include "colors_codes.h"
 
-void test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result)
+int test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result)
 {
     MY_ASSERT(is_finite(coeffs.a));
     MY_ASSERT(is_finite(coeffs.b));
@@ -24,8 +25,12 @@ void test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result)
         flag = 0;
 
     if (!flag)
-        printf("FAILED solve_general({%f, %f, %f}) -> {%f %f %d}  (should be {%f %f %d})",
-            coeffs.a, coeffs.b, coeffs.c,
+    {
+        printf(RED BOLD "FAILED solve_general({%f, %f, %f}) -> {%f %f %d} (should be {%f %f %d})\n"
+            RESET, coeffs.a, coeffs.b, coeffs.c,
             calculated_result.x1, calculated_result.x2, check_case,
             expected_result.x1, expected_result.x2, expected_result.solution_case);
+        return 0;
+    }
+    return 1;
 }

@@ -1,0 +1,22 @@
+/*! \mainpage Документация проекта
+ *
+ * \section intro_sec Введение
+ *
+ * Это главная страница документации моего проекта на C.
+ *
+ * \section install_sec Установка
+ *
+ * \code
+ * make
+ * sudo make install
+ * \endcode
+ *
+ * \section usage_sec Использование
+ *
+ * Пример использования программы:
+ * \code
+ * ./program --help
+ * \endcode
+ */
+
+ //FIXME

@@ -97,7 +97,6 @@ static enum SolutionType solve_quadratic_equation(const QuadricCoeffs* ptr_coeff
     float root_1 = ((-1) * ptr_coeffs->b + discr_square_root) / (2 * ptr_coeffs->a);
     float root_2 = ((-1) * ptr_coeffs->b - discr_square_root) / (2 * ptr_coeffs->a);
 
-    //ДЕЛО СДЕЛАНО
     if (root_1 < root_2) //нужно для упрощения тестов (первый ожидаемый вводимый корень наибольший)
     {
         float tmp = root_1;

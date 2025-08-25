@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "io.h"
 #include "equation_solver.h"
@@ -8,15 +9,26 @@
 #include "global_test.h"
 
 #include "my_assert.h"
+// ОТЛОЖИЛ ДО ЛУЧШИХ ВРЕМЁН запустить doxygen
+// FIXME getopt, сделать через него --interactive --test --help
+// FIXME почему везде используется FILE* а не FILE
+// FIXME что происходит до main и после
 
-// FIXME argc argv
-int main()
+
+int main(const int argc, const char** argv)
 {
-    global_test();
+    bool test_flag = search_flag("--test", argc, argv);
+
+    if (test_flag)
+    {
+        global_test();
+        return 0;
+    }
 
     //MY_ASSERT("Poltorashka" == "dog");
     //MY_ASSERT_WITH_MESSAGE(0 == 1, "переделывай");
 
+    // FIXME вынеси в функцию
     puts(BLUE "Enter the quadratic equation coefficients in the following format: \"a b c\", "
          "where ax^2 + bx + c = 0" RESET);
     for (;;)
@@ -37,4 +49,6 @@ int main()
         if (continue_request() == -1)
             break;
     }
+
+    return 0;
 }

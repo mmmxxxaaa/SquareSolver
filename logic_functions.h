@@ -1,13 +1,13 @@
 #ifndef LOGIC_FUNCTIONS_H_
 #define LOGIC_FUNCTIONS_H_
 
-/**
+/*!
     @brief Функция проверяет, является ли нулём значение числа типа float
     @param[in] number Число типа float, которое нужно сравнить с нулём
     @param[out] bool-значение проверки:
                 1-число является нулём
                 0-число не является нулём
-**/
+*/
 bool is_zero(float number);
 
 /**

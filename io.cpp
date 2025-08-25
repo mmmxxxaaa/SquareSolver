@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "colors_codes.h"
 #include "my_assert.h"
@@ -87,4 +88,13 @@ int continue_request()
     }
     else
         return -1;
+}
+
+
+bool search_flag(const char* name_of_flag, const int amount_of_input, const char** input)
+{
+    for (int i = 0; i < amount_of_input; input++, i++)
+        if (strcmp(name_of_flag, *input) == 0)
+            return true;
+    return false;
 }
