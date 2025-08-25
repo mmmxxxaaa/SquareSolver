@@ -60,7 +60,7 @@ void global_test()
         {{0,  1, 0}, { 0,  0, SOLUTION_TYPE_LINEAR_HAS_1_ROOT    }},
         {{1,  0, 0}, { 0,  0, SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT }},
         {{1,  2, 1}, {-1, -1, SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT }},
-        {{1, -5, 6}, { 2,  2, SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS}} // 3 2
+        {{1, -5, 6}, { 3,  2, SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS}}
     };
 
     int amount_of_tests = sizeof(many_tests) / sizeof(many_tests[0]);
