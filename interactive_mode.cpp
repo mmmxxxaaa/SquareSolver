@@ -7,7 +7,6 @@
 #include "equation_solver.h"
 #include "colors_codes.h"
 
-
 void interactive_mode()
 {
     puts(BLUE "Enter the quadratic equation coefficients in the following format: \"a b c\", "

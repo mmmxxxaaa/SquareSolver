@@ -91,10 +91,3 @@ int continue_request()
 }
 
 
-bool search_flag(const char* name_of_flag, const int amount_of_input, char** input)
-{
-    for (int i = 0; i < amount_of_input; input++, i++)
-        if (strcmp(name_of_flag, *input) == 0)
-            return true;
-    return false;
-}

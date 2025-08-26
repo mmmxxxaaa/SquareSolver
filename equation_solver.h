@@ -21,6 +21,9 @@ typedef struct {
     float c;
 } QuadricCoeffs;
 
+/**
+    @brief Структура хранит в себе информацию о решении квадратного уравнения
+*/
 typedef struct {
     float x1;
     float x2;

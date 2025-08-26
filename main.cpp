@@ -14,7 +14,6 @@
 #include "help.h"
 #include "prank.h"
 
-
 // ДЕЛО СДЕЛАНО что происходит до main и после
 // до: _start function. This function initializes the program runtime and invokes the program’s main function.
 /*
@@ -67,8 +66,10 @@ int main(const int argc, char** argv)
         default:
             printf ("?? getopt возвратило код символа 0%d ??\n", option_symbol); //%o
         }
+        return 0;
     }
-
+    global_test();
+    interactive_mode();
     //MY_ASSERT("Poltorashka" == "dog");
     //MY_ASSERT_WITH_MESSAGE(0 == 1, "переделывай");
 

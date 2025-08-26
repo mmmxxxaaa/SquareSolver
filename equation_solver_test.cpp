@@ -13,7 +13,7 @@ int test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result)
     MY_ASSERT(is_finite(coeffs.b));
     MY_ASSERT(is_finite(coeffs.c));
 
-    RootsAndCase calculated_result;
+    RootsAndCase calculated_result = {0, 0, SOLUTION_TYPE_NONE};
     enum SolutionType check_case = solve_general(&coeffs, &calculated_result);
 
     int flag = 1;

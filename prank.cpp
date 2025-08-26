@@ -7,8 +7,6 @@
 #include "equation_solver.h"
 #include "time.h"
 
-const int string_size = 256;
-
 void prank()
 {
     puts(BLUE "Enter new quadratic quadratic equation coefficients"
@@ -35,17 +33,18 @@ void processing_prank()
     printf("Are you sure that the a coefficient is 0?\n");
     //scanf("%256s", &answer);
     clear_input_stream();
-    printf("OK\n");
+    printf("OK :-) \n");
     printf("starting thinking\n");
-    time_t start_time, end_time;
+    time_t start_time, end_time; //TODO сделать вращающийся кружочку
     time(&start_time);
-    while ((time(&end_time) - start_time) < 8)
+    while ((time(&end_time) - start_time) < 5)
         ;
 
     time(&start_time);
     while (time(&end_time) - start_time < 2)
+    {
         printf("thinking\n");
-
+    }
     time(&start_time);
     printf("Oh, this task is really hard\n");
     while (time(&end_time) - start_time < 4)
@@ -56,6 +55,22 @@ void processing_prank()
         printf("thinking\n");
 
     printf("The answer is POGLYAD POLTORASHKY\n");
+    poltoraIIIka("MEOW");
+}
+
+void poltoraIIIka(const char *name) {
+    printf(" ");
+    printf(" \n");
+    printf("       ....／＞　 フ.....\n"
+    "　　　　　| 　_　 _|\n"
+    "　 　　　／`ミ _* 彡 -- %s!!\n"
+    "　　 　 /　　　 　 |\n"
+    "　　　 /　 ヽ　　 ﾉ\n"
+    "　／￣|　　 |　|　|\n"
+    "　| (￣ヽ＿_ヽ_)_)\n"
+    "　＼二つ\n", name);
+    printf(" \n");
+    printf(" ");
 }
 
 

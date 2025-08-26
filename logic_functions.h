@@ -7,6 +7,7 @@
     @param[out] bool-значение проверки:
                 1-число является нулём
                 0-число не является нулём
+    @return true, если тест прошел и false, если тест не прошёл
 */
 bool is_zero(float number);
 
@@ -17,6 +18,7 @@ bool is_zero(float number);
     @param[out] bool-значение проверки:
                 1-числа равны
                 0-числа не равны
+    @return true, если тест прошел и false, если тест не прошёл
 **/
 bool is_equal(float number_1, float number_2);
 
@@ -26,6 +28,7 @@ bool is_equal(float number_1, float number_2);
     @param[out] bool-значение проверки:
                 1-число имеет состояние NaN
                 0-число имеет стандартное состояние
+    @return true, если тест прошел и false, если тест не прошёл
 **/
 bool is_nan(float number);
 
@@ -35,6 +38,7 @@ bool is_nan(float number);
     @param[out] bool-значение проверки:
                 1-число имеет состояние INF
                 0-число имеет стандартное состояние
+    @return true, если тест прошел и false, если тест не прошёл
 **/
 bool is_inf(float number);
 
@@ -44,6 +48,7 @@ bool is_inf(float number);
     @param[out] bool-значение проверки:
                 1-число имеет стандартное состояние
                 0-число имеет состояние Nan или INF
+    @return true, если тест прошел и false, если тест не прошёл
 **/
 bool is_finite(float number);
 
