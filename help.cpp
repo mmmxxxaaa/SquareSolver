@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void help(const char* parameter)
+void help()
 {
     system("ncal");
 
-    printf("parameter %s\n", parameter); //ДЕЛО СДЕЛАНО вызывать ncal внутри help (календарь)
+    printf("parameter help\n"); //ДЕЛО СДЕЛАНО вызывать ncal внутри help (календарь)
     printf("--interactive  Sets interactive mode");
     printf("Enter new quadratic quadratic equation coefficients"
         " in the following format: \"a b c\", where ax^2 + bx + c = 0 \n");

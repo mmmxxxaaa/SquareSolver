@@ -68,7 +68,7 @@ void output_general(RootsAndCase result)
 
 void clear_input_stream()
 {
-    int ch;
+    int ch = 0;
 
     while ((ch = getchar()) != '\n' && ch != EOF)
         continue;

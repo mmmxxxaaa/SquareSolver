@@ -97,11 +97,14 @@ int run_tests_from_file(int* success_tests, int* all_tests)
 
     while (!feof(file))
     {
-        QuadricCoeffs coeffs;
-        RootsAndCase expected_roots;
+        QuadricCoeffs coeffs = {};
+        RootsAndCase expected_roots {0 , 0, SOLUTION_TYPE_NONE};
+        int tmp_int_to_enum = 0;
+
         int count_coeffs = fscanf(file, "%f %f %f", &coeffs.a, &coeffs.b, &coeffs.c);
         int count_expected_roots = fscanf(file, "%f %f %d", &expected_roots.x1, &expected_roots.x2,
-            &expected_roots.solution_case);  //FIXME убрать warning, сделав новую функцию int -> solution_type
+            &tmp_int_to_enum);  //ДЕЛО СДЕЛАНО убрать warning, сделав новую функцию int -> solution_type
+        expected_roots.solution_case = (SolutionType) tmp_int_to_enum;
         if ((count_coeffs + count_expected_roots) != 6)
             break;
         *success_tests += test_solve_general(coeffs, expected_roots);

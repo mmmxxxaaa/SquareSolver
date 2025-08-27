@@ -6,12 +6,21 @@
 #include "io.h"
 #include "equation_solver.h"
 #include "time.h"
+#include "my_assert.h"
+
+const int thinking_time_long = 4;
+const int thinking_time_short = 2;
+
+static void thinking_silent(time_t thinking_time);
+static void thinking_shout(time_t thinking_time);
 
 void prank()
 {
+    const int prank_number = 10;
+
     puts(BLUE "Enter new quadratic quadratic equation coefficients"
         " in the following format: \"a b c\", where ax^2 + bx + c = 0" RESET);
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < prank_number; i++)
     {
         QuadricCoeffs coeffs = {0};
 
@@ -27,51 +36,58 @@ void prank()
             break;
     }
 }
-
+//FIXME сделать логгер
 void processing_prank()
 {
     printf("Are you sure that the a coefficient is 0?\n");
-    //scanf("%256s", &answer);
     clear_input_stream();
     printf("OK :-) \n");
     printf("starting thinking\n");
-    time_t start_time, end_time; //TODO сделать вращающийся кружочку
-    time(&start_time);
-    while ((time(&end_time) - start_time) < 5)
-        ;
 
-    time(&start_time);
-    while (time(&end_time) - start_time < 2)
-    {
-        printf("thinking\n");
-    }
-    time(&start_time);
+    thinking_silent(thinking_time_long);
+
+    thinking_shout(thinking_time_short);
+
     printf("Oh, this task is really hard\n");
-    while (time(&end_time) - start_time < 4)
-        ;
 
-    time(&start_time);
-    while (time(&end_time) - start_time < 2)
-        printf("thinking\n");
+    thinking_silent(thinking_time_long);
+
+    thinking_shout(thinking_time_short);
 
     printf("The answer is POGLYAD POLTORASHKY\n");
     poltoraIIIka("MEOW");
 }
 
-void poltoraIIIka(const char *name) {
+void poltoraIIIka(const char *name)
+{
+    MY_ASSERT(name != NULL);
+
     printf(" ");
     printf(" \n");
     printf("       ....／＞　 フ.....\n"
-    "　　　　　| 　_　 _|\n"
-    "　 　　　／`ミ _* 彡 -- %s!!\n"
-    "　　 　 /　　　 　 |\n"
-    "　　　 /　 ヽ　　 ﾉ\n"
-    "　／￣|　　 |　|　|\n"
-    "　| (￣ヽ＿_ヽ_)_)\n"
-    "　＼二つ\n", name);
+           "　　　　　| 　_　 _|\n"
+           "　 　　　／`ミ _* 彡 -- %s!!\n"
+           "　　 　 /　　　 　 |\n"
+           "　　　 /　 ヽ　　 ﾉ\n"
+           "　／￣|　　 |　|　|\n"
+           "　| (￣ヽ＿_ヽ_)_)\n"
+           "　＼二つ\n", name);
     printf(" \n");
     printf(" ");
 }
 
+void thinking_silent(time_t thinking_time)
+{
+    time_t start_time, end_time;
+    time(&start_time);
+    while ((time(&end_time) - start_time) < thinking_time)
+        ;
+}
 
-//ДЕЛО СДЕЛАНО
+void thinking_shout(time_t thinking_time)
+{
+    time_t start_time, end_time;
+    time(&start_time);
+    while ((time(&end_time) - start_time) < thinking_time)
+        printf("thinking\n");
+}

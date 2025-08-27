@@ -35,6 +35,8 @@ static enum SolutionType solve_linear_equation(const QuadricCoeffs* ptr_coeffs,
 static enum SolutionType solve_quadratic_equation(const QuadricCoeffs* ptr_coeffs,
                                                          RootsAndCase* ptr_result);
 
+void swap_roots(float* ptr_root_1, float* ptr_root_2);
+
 enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* ptr_result)
 {
     MY_ASSERT(ptr_coeffs != NULL);
@@ -98,12 +100,8 @@ static enum SolutionType solve_quadratic_equation(const QuadricCoeffs* ptr_coeff
     float root_2 = ((-1) * ptr_coeffs->b - discr_square_root) / (2 * ptr_coeffs->a);
 
     if (root_1 < root_2) //нужно для упрощения тестов (первый ожидаемый вводимый корень наибольший)
-    {
-        float tmp = root_1;
-        root_1 = root_2;
-        root_2 = tmp;
-        printf("%f %f \n", root_1, root_2);
-    }
+        swap_roots(&root_1, &root_2);
+
     ptr_result->x1 = is_zero(root_1) ? 0.0f : root_1;
     ptr_result->x2 = is_zero(root_2) ? 0.0f : root_2;
 
@@ -111,4 +109,15 @@ static enum SolutionType solve_quadratic_equation(const QuadricCoeffs* ptr_coeff
         return SOLUTION_TYPE_QUADRATIC_HAS_1_ROOT;
     else
         return SOLUTION_TYPE_QUADRATIC_HAS_2_ROOTS;
+}
+
+
+void swap_roots(float* ptr_root_1, float* ptr_root_2)
+{
+    float tmp = *ptr_root_1;
+
+    *ptr_root_1 = *ptr_root_2;
+    *ptr_root_2 = tmp;
+
+    printf("%s: root_1 = %f, root_2 = %f \n", __func__, *ptr_root_1, *ptr_root_2);
 }

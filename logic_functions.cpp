@@ -6,7 +6,6 @@
 
 #include "my_assert.h"
 
-
 bool is_zero(float number)
 {
     MY_ASSERT(is_finite(number));

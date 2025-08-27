@@ -1,7 +1,8 @@
+#include "my_assert.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "my_assert.h"
 #include "colors_codes.h"
 
 void my_assert_function(int expression, const char* expression_string, const char* ptr_name_of_file,

@@ -7,28 +7,12 @@
 #include "equation_solver.h"
 #include "colors_codes.h"
 #include "my_static_assert.h"
-#include "my_assert.h"
+// #include "my_assert.h"
 
 #include "global_test.h"
 #include "interactive_mode.h"
 #include "help.h"
 #include "prank.h"
-
-// ДЕЛО СДЕЛАНО что происходит до main и после
-// до: _start function. This function initializes the program runtime and invokes the program’s main function.
-/*
-Early low-level initialization, such as:
-Configuring processor registers
-    Initializing external memory
-    Enabling caches
-    Configuring the MMU
-Stack initialization, making sure that the stack is properly aligned per the ABI requirements
-Frame pointer initialization
-Initialization of the C/C++ runtime
-Initialization of other scaffolding required by the system
-Jumping to main
-Exiting the program with the return code from main
-*/
 
 int main(const int argc, char** argv)
 {
@@ -49,8 +33,7 @@ int main(const int argc, char** argv)
 
         switch (option_symbol) {
         case 'h':
-            // ДЕЛО СДЕЛАНО вынеси в help();
-            help(long_options[option_index].name);
+            help();
             break;
         case 'i':
             interactive_mode();
@@ -68,8 +51,8 @@ int main(const int argc, char** argv)
         }
         return 0;
     }
-    global_test();
     interactive_mode();
+
     //MY_ASSERT("Poltorashka" == "dog");
     //MY_ASSERT_WITH_MESSAGE(0 == 1, "переделывай");
 
