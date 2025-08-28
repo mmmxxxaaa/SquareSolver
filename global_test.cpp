@@ -8,8 +8,9 @@
 #include "colors_codes.h"
 
 #include "equation_solver.h"
+#include "logger.h"
 
-void global_test()
+void global_test(enum LoggerPriority logger_type)
 {
     int success_tests = 0;
     int all_tests = 0;
@@ -20,17 +21,23 @@ void global_test()
     success_tests += test_is_zero(4e-12f, 1); //2
     all_tests += 1;
 
+    logger_output("global_test(): tests test_is_zero passed\n", LOGGER_PRIORITY_INFO, logger_type);
+
     success_tests += test_is_equal(0, 0, 1); //3
     all_tests += 1;
 
     success_tests += test_is_equal(0.001f, 0.0001f, 0); //4
     all_tests += 1;
 
+    logger_output("global_test(): tests test_is_equal passed\n", LOGGER_PRIORITY_INFO, logger_type);
+
     success_tests += test_is_nan(0.451387f, 0); //5
     all_tests += 1;
 
     success_tests += test_is_nan(NAN, 1); //6
     all_tests += 1;
+
+    logger_output("global_test(): tests test_is_nan passed\n", LOGGER_PRIORITY_INFO, logger_type);
 
     success_tests += test_is_inf(1e20f, 0); //7
     all_tests += 1;
@@ -43,6 +50,8 @@ void global_test()
     success_tests += test_is_inf(INFINITY, 1); //10
     all_tests += 1;
 
+    logger_output("global_test(): tests test_is_inf passed\n", LOGGER_PRIORITY_INFO, logger_type);
+
     success_tests += test_is_finite(1e20f, 1); //11
     all_tests += 1;
     success_tests += test_is_finite(-1e20f, 1); //12
@@ -53,6 +62,8 @@ void global_test()
     all_tests += 1;
     success_tests += test_is_finite(INFINITY, 0); //15
     all_tests += 1;
+
+    logger_output("global_test(): tests test_is_finite passed\n", LOGGER_PRIORITY_INFO, logger_type);
 
     /***
     Test many_tests[] = {
@@ -66,9 +77,12 @@ void global_test()
 
     ***/
 
-    int opened = run_tests_from_file(&success_tests, &all_tests);
+    int opened = run_tests_from_file(&success_tests, &all_tests, logger_type);
     if (!opened)
+    {
         printf(RED BOLD "Failed opening the file with test \n" RESET);
+        logger_output("Failed opening the file with test \n", LOGGER_PRIORITY_ERROR, logger_type);
+    }
 
     /***
     int amount_of_tests = sizeof(many_tests) / sizeof(many_tests[0]);
@@ -81,17 +95,21 @@ void global_test()
     ***/
     printf(GREEN BOLD "%d of %d tests passed\n" RESET, success_tests, all_tests);
     if (success_tests == all_tests)
-        printf(GREEN BOLD "All tests passed successful\n" RESET);
+    {
+        printf(GREEN BOLD "All tests passed successfully\n" RESET);
+        logger_output("All tests passed successfully\n", LOGGER_PRIORITY_INFO, logger_type);
+    }
 }
 
 
-int run_tests_from_file(int* success_tests, int* all_tests)
+int run_tests_from_file(int* success_tests, int* all_tests, enum LoggerPriority logger_type)
 {
     FILE *file = fopen("tests.txt", "r");
 
     if (file == NULL)
     {
         printf("Cannot open the file");
+        logger_output("run_tests_from_file(): Cannot open the file\n", LOGGER_PRIORITY_CRITICAL, logger_type);
         return 0;
     }
 
@@ -103,16 +121,19 @@ int run_tests_from_file(int* success_tests, int* all_tests)
 
         int count_coeffs = fscanf(file, "%f %f %f", &coeffs.a, &coeffs.b, &coeffs.c);
         int count_expected_roots = fscanf(file, "%f %f %d", &expected_roots.x1, &expected_roots.x2,
-            &tmp_int_to_enum);  //ДЕЛО СДЕЛАНО убрать warning, сделав новую функцию int -> solution_type
+            &tmp_int_to_enum);
         expected_roots.solution_case = (SolutionType) tmp_int_to_enum;
         if ((count_coeffs + count_expected_roots) != 6)
             break;
-        *success_tests += test_solve_general(coeffs, expected_roots);
+        *success_tests += test_solve_general(coeffs, expected_roots, logger_type);
         *all_tests = *all_tests + 1;
     }
 
 
     fclose(file);
+    logger_output("run_tests_from_file(): File with tests was closed\n", LOGGER_PRIORITY_DEBUG, logger_type);
+
+
     return 1;
 }
 

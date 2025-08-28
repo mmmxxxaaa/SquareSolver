@@ -7,6 +7,7 @@
 #include "equation_solver.h"
 #include "time.h"
 #include "my_assert.h"
+#include "logger.h"
 
 const int thinking_time_long = 4;
 const int thinking_time_short = 2;
@@ -14,7 +15,7 @@ const int thinking_time_short = 2;
 static void thinking_silent(time_t thinking_time);
 static void thinking_shout(time_t thinking_time);
 
-void prank()
+void prank(enum LoggerPriority logger_type)
 {
     const int prank_number = 10;
 
@@ -29,15 +30,20 @@ void prank()
 
         if (got_success)
         {
-            processing_prank();
+            logger_output("prank(): starting processing_prank()\n", LOGGER_PRIORITY_INFO, logger_type);
+            processing_prank(logger_type);
             break;
+
         }
         if (continue_request() == -1)
+        {
+            logger_output("prank(): wrong input coefficients\n", LOGGER_PRIORITY_ERROR, logger_type);
             break;
+        }
     }
 }
-//FIXME сделать логгер
-void processing_prank()
+
+void processing_prank(enum LoggerPriority logger_type)
 {
     printf("Are you sure that the a coefficient is 0?\n");
     clear_input_stream();
@@ -56,6 +62,7 @@ void processing_prank()
 
     printf("The answer is POGLYAD POLTORASHKY\n");
     poltoraIIIka("MEOW");
+    logger_output("printed poltoraIIIka result\n", LOGGER_PRIORITY_INFO, logger_type);
 }
 
 void poltoraIIIka(const char *name)

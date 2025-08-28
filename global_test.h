@@ -2,6 +2,7 @@
 #define GLOBAL_TEST_H_
 
 #include "equation_solver.h"
+#include "logger.h"
 
 /**
     @brief Структура хранит в себе данные для тестов:
@@ -18,12 +19,12 @@ typedef struct {
 /**
     @brief Функция запускает тесты всех функций
 */
-void global_test();
+void global_test(enum LoggerPriority logger_type);
 
 
 /**
     @brief Функция запускает тесты equation_solver из файла
 */
-int run_tests_from_file(int* success_tests, int* all_tests);
+int run_tests_from_file(int* success_tests, int* all_tests, enum LoggerPriority logger_type);
 
 #endif // GLOBAL_TEST_H_

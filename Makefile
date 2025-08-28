@@ -16,7 +16,7 @@ CXXFLAGS := -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-
 
 SRC_FILES := main.cpp io.cpp equation_solver.cpp logic_functions.cpp my_assert.cpp \
 	logic_functions_test.cpp equation_solver_test.cpp global_test.cpp interactive_mode.cpp \
-    help.cpp prank.cpp
+    help.cpp prank.cpp logger.cpp
 OBJ_FILES := $(SRC_FILES:.cpp=.o)
 
 all: SquareSolver

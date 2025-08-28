@@ -10,6 +10,7 @@ enum LoggerPriority {
     LOGGER_PRIORITY_NOTHING
 };
 
-int logger_output(char* show_message, enum LoggerPriority priority);
+void logger_output(const char* show_message, enum LoggerPriority message_priority,
+                  enum LoggerPriority set_priority);
 
 #endif // MY_LOGGER_H_

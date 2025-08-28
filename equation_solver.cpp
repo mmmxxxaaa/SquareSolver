@@ -5,6 +5,7 @@
 
 #include "my_assert.h"
 #include "logic_functions.h"
+#include "logger.h"
 
 /**
     @brief Функция отвечает за нахождение дискриминанта квадратного уравнения
@@ -37,7 +38,7 @@ static enum SolutionType solve_quadratic_equation(const QuadricCoeffs* ptr_coeff
 
 void swap_roots(float* ptr_root_1, float* ptr_root_2);
 
-enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* ptr_result)
+enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* ptr_result, enum LoggerPriority logger_type)
 {
     MY_ASSERT(ptr_coeffs != NULL);
     MY_ASSERT(ptr_result != NULL);
@@ -46,13 +47,27 @@ enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* p
     MY_ASSERT(is_finite(ptr_coeffs->c));
 
     if (is_zero(ptr_coeffs->a) && is_zero(ptr_coeffs->b) && is_zero(ptr_coeffs->c))
+    {
+        logger_output("Solution type chosen: SOLUTION_TYPE_INF_ROOTS\n", LOGGER_PRIORITY_INFO, logger_type);
         return SOLUTION_TYPE_INF_ROOTS;
+    }
     else if (is_zero(ptr_coeffs->a) && is_zero(ptr_coeffs->b))
+    {
+        logger_output("Solution type chosen: SOLUTION_TYPE_NO_ROOTS\n", LOGGER_PRIORITY_INFO, logger_type);
         return SOLUTION_TYPE_NO_ROOTS;
+    }
     else if (is_zero(ptr_coeffs->a))
+    {
+        logger_output("Solution type chosen: SOLUTION_TYPE_LINEAR_ROOTS; Starting searching root\n",
+            LOGGER_PRIORITY_INFO, logger_type);
         return solve_linear_equation(ptr_coeffs, ptr_result);
+    }
     else
+    {
+        logger_output("It is a quadratic equation; Starting searching root\n",
+            LOGGER_PRIORITY_INFO, logger_type);
         return solve_quadratic_equation(ptr_coeffs, ptr_result);
+    }
 }
 
 static float make_discriminant(const QuadricCoeffs* ptr_coeffs)

@@ -1,11 +1,12 @@
 #ifndef HELP_H_
 #define HELP_H_
 
+#include "logger.h"
 
 /**
     @brief Функция выводит пользователю календарь и сообщает об аргументах командной строки,
     которые могут быть обработаны, если их введёт пользователь
 */
-void help();
+void help(enum LoggerPriority logger_type);
 
 #endif

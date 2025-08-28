@@ -1,0 +1,20 @@
+User made wrong input
+successfully got coeffs
+It is a quadratic equation; Starting searching root
+Printed output
+User exited the program
+successfully got coeffs
+It is a quadratic equation; Starting searching root
+Printed output
+successfully got coeffs
+It is a quadratic equation; Starting searching root
+Printed output
+successfully got coeffs
+It is a quadratic equation; Starting searching root
+Printed output
+successfully got coeffs
+It is a quadratic equation; Starting searching root
+Printed output
+successfully got coeffs
+It is a quadratic equation; Starting searching root
+Printed output
