@@ -19,12 +19,12 @@ typedef struct {
 /**
     @brief Функция запускает тесты всех функций
 */
-void global_test(enum LoggerPriority logger_type);
+void global_test();
 
 
 /**
     @brief Функция запускает тесты equation_solver из файла
 */
-int run_tests_from_file(int* success_tests, int* all_tests, enum LoggerPriority logger_type);
+int run_tests_from_file(int* success_tests, int* all_tests);
 
 #endif // GLOBAL_TEST_H_

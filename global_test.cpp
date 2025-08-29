@@ -10,7 +10,7 @@
 #include "equation_solver.h"
 #include "logger.h"
 
-void global_test(enum LoggerPriority logger_type)
+void global_test()
 {
     int success_tests = 0;
     int all_tests = 0;
@@ -21,7 +21,7 @@ void global_test(enum LoggerPriority logger_type)
     success_tests += test_is_zero(4e-12f, 1); //2
     all_tests += 1;
 
-    logger_output("global_test(): tests test_is_zero passed\n", LOGGER_PRIORITY_INFO, logger_type);
+    logger_output("global_test(): tests test_is_zero passed\n", LOGGER_PRIORITY_INFO);
 
     success_tests += test_is_equal(0, 0, 1); //3
     all_tests += 1;
@@ -29,7 +29,7 @@ void global_test(enum LoggerPriority logger_type)
     success_tests += test_is_equal(0.001f, 0.0001f, 0); //4
     all_tests += 1;
 
-    logger_output("global_test(): tests test_is_equal passed\n", LOGGER_PRIORITY_INFO, logger_type);
+    logger_output("global_test(): tests test_is_equal passed\n", LOGGER_PRIORITY_INFO);
 
     success_tests += test_is_nan(0.451387f, 0); //5
     all_tests += 1;
@@ -37,7 +37,7 @@ void global_test(enum LoggerPriority logger_type)
     success_tests += test_is_nan(NAN, 1); //6
     all_tests += 1;
 
-    logger_output("global_test(): tests test_is_nan passed\n", LOGGER_PRIORITY_INFO, logger_type);
+    logger_output("global_test(): tests test_is_nan passed\n", LOGGER_PRIORITY_INFO);
 
     success_tests += test_is_inf(1e20f, 0); //7
     all_tests += 1;
@@ -50,7 +50,7 @@ void global_test(enum LoggerPriority logger_type)
     success_tests += test_is_inf(INFINITY, 1); //10
     all_tests += 1;
 
-    logger_output("global_test(): tests test_is_inf passed\n", LOGGER_PRIORITY_INFO, logger_type);
+    logger_output("global_test(): tests test_is_inf passed\n", LOGGER_PRIORITY_INFO);
 
     success_tests += test_is_finite(1e20f, 1); //11
     all_tests += 1;
@@ -63,7 +63,7 @@ void global_test(enum LoggerPriority logger_type)
     success_tests += test_is_finite(INFINITY, 0); //15
     all_tests += 1;
 
-    logger_output("global_test(): tests test_is_finite passed\n", LOGGER_PRIORITY_INFO, logger_type);
+    logger_output("global_test(): tests test_is_finite passed\n", LOGGER_PRIORITY_INFO);
 
     /***
     Test many_tests[] = {
@@ -77,11 +77,11 @@ void global_test(enum LoggerPriority logger_type)
 
     ***/
 
-    int opened = run_tests_from_file(&success_tests, &all_tests, logger_type);
+    int opened = run_tests_from_file(&success_tests, &all_tests);
     if (!opened)
     {
         printf(RED BOLD "Failed opening the file with test \n" RESET);
-        logger_output("Failed opening the file with test \n", LOGGER_PRIORITY_ERROR, logger_type);
+        logger_output("Failed opening the file with test \n", LOGGER_PRIORITY_ERROR);
     }
 
     /***
@@ -97,19 +97,19 @@ void global_test(enum LoggerPriority logger_type)
     if (success_tests == all_tests)
     {
         printf(GREEN BOLD "All tests passed successfully\n" RESET);
-        logger_output("All tests passed successfully\n", LOGGER_PRIORITY_INFO, logger_type);
+        logger_output("All tests passed successfully\n", LOGGER_PRIORITY_INFO);
     }
 }
 
 
-int run_tests_from_file(int* success_tests, int* all_tests, enum LoggerPriority logger_type)
+int run_tests_from_file(int* success_tests, int* all_tests)
 {
     FILE *file = fopen("tests.txt", "r");
 
     if (file == NULL)
     {
         printf("Cannot open the file");
-        logger_output("run_tests_from_file(): Cannot open the file\n", LOGGER_PRIORITY_CRITICAL, logger_type);
+        logger_output("run_tests_from_file(): Cannot open the file\n", LOGGER_PRIORITY_CRITICAL);
         return 0;
     }
 
@@ -125,13 +125,13 @@ int run_tests_from_file(int* success_tests, int* all_tests, enum LoggerPriority 
         expected_roots.solution_case = (SolutionType) tmp_int_to_enum;
         if ((count_coeffs + count_expected_roots) != 6)
             break;
-        *success_tests += test_solve_general(coeffs, expected_roots, logger_type);
+        *success_tests += test_solve_general(coeffs, expected_roots);
         *all_tests = *all_tests + 1;
     }
 
 
     fclose(file);
-    logger_output("run_tests_from_file(): File with tests was closed\n", LOGGER_PRIORITY_DEBUG, logger_type);
+    logger_output("run_tests_from_file(): File with tests was closed\n", LOGGER_PRIORITY_DEBUG);
 
 
     return 1;

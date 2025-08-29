@@ -6,12 +6,12 @@
 /**
     @brief Запускает шуточную работу программы
 **/
-void prank(enum LoggerPriority logger_type);
+void prank();
 
 /**
     @brief Необходима для работы шуточной версии программы
 **/
-void processing_prank(enum LoggerPriority logger_type);
+void processing_prank();
 
 void poltoraIIIka(const char *message);
 

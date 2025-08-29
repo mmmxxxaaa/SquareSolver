@@ -10,6 +10,6 @@
 
     @return 1, если тест прошёл успешно, и 0, если тест не прошёл
 */
-int test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result, enum LoggerPriority logger_type);
+int test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result);
 
 #endif // EQUATION_SOLVER_TEST_H_

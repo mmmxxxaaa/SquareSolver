@@ -15,7 +15,7 @@ const int thinking_time_short = 2;
 static void thinking_silent(time_t thinking_time);
 static void thinking_shout(time_t thinking_time);
 
-void prank(enum LoggerPriority logger_type)
+void prank()
 {
     const int prank_number = 10;
 
@@ -30,20 +30,20 @@ void prank(enum LoggerPriority logger_type)
 
         if (got_success)
         {
-            logger_output("prank(): starting processing_prank()\n", LOGGER_PRIORITY_INFO, logger_type);
-            processing_prank(logger_type);
+            logger_output("prank(): starting processing_prank()\n", LOGGER_PRIORITY_INFO);
+            processing_prank();
             break;
 
         }
         if (continue_request() == -1)
         {
-            logger_output("prank(): wrong input coefficients\n", LOGGER_PRIORITY_ERROR, logger_type);
+            logger_output("prank(): wrong input coefficients\n", LOGGER_PRIORITY_ERROR);
             break;
         }
     }
 }
 
-void processing_prank(enum LoggerPriority logger_type)
+void processing_prank()
 {
     printf("Are you sure that the a coefficient is 0?\n");
     clear_input_stream();
@@ -62,7 +62,7 @@ void processing_prank(enum LoggerPriority logger_type)
 
     printf("The answer is POGLYAD POLTORASHKY\n");
     poltoraIIIka("MEOW");
-    logger_output("printed poltoraIIIka result\n", LOGGER_PRIORITY_INFO, logger_type);
+    logger_output("printed poltoraIIIka result\n", LOGGER_PRIORITY_INFO);
 }
 
 void poltoraIIIka(const char *name)

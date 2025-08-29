@@ -44,6 +44,6 @@ typedef struct {
         SOLUTION_TYPE_QUADRATIC_HAS_0_ROOTS - уравнение является квадртаным и не имеет решений
         SOLUTION_TYPE_NONE - неинициализированный случай
 **/
-enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* ptr_result, enum LoggerPriority logger_type);
+enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* ptr_result);
 
 #endif // EQUATION_SOLVER_H_

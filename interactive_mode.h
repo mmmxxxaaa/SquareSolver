@@ -6,7 +6,7 @@
 /**
     @brief Функция вызывает интерактивный способ взаимодействия с программой (без тестов)
 */
-void interactive_mode(enum LoggerPriority logger_type);
+void interactive_mode();
 
 
 #endif // INTERACTIVE_MODE_H_

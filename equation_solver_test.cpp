@@ -7,14 +7,14 @@
 #include "my_assert.h"
 #include "colors_codes.h"
 
-int test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result, enum LoggerPriority logger_type)
+int test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result)
 {
     MY_ASSERT(is_finite(coeffs.a));
     MY_ASSERT(is_finite(coeffs.b));
     MY_ASSERT(is_finite(coeffs.c));
 
     RootsAndCase calculated_result = {0, 0, SOLUTION_TYPE_NONE};
-    enum SolutionType check_case = solve_general(&coeffs, &calculated_result, logger_type);
+    enum SolutionType check_case = solve_general(&coeffs, &calculated_result);
 
     int flag = 1;
     if (!is_equal(calculated_result.x1, expected_result.x1))

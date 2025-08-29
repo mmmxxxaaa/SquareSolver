@@ -26,7 +26,8 @@ int main(const int argc, char** argv)
     bool test_requested = false;
     bool prank_requested = false;
 
-    enum LoggerPriority logger_type = LOGGER_PRIORITY_NOTHING;
+    FILE* logger_file = logger_init();
+    logger_set_priority(LOGGER_PRIORITY_NOTHING);
 
     int option_index = 0;
     static struct option long_options[] = {
@@ -55,7 +56,7 @@ int main(const int argc, char** argv)
                 prank_requested = true;
                 break;
             case 'l':
-                logger_type = str_to_enum(optarg);
+                logger_set_priority(str_to_enum(optarg));
                 break;
             case '?':
                 break;
@@ -65,21 +66,22 @@ int main(const int argc, char** argv)
     }
 
     if (help_requested) {
-        help(logger_type);
+        help();
     }
 
     if (test_requested) {
-        global_test(logger_type);
+        global_test();
     }
 
     if (prank_requested) {
-        prank(logger_type);
+        prank();
     }
 
     if (interactive_requested || (!help_requested && !test_requested && !prank_requested)) {
-        interactive_mode(logger_type);
+        interactive_mode();
     }
 
+    logger_finish(logger_file);
     return 0;
 }
 
