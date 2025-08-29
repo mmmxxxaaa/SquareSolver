@@ -48,24 +48,22 @@ enum SolutionType solve_general(const QuadricCoeffs* ptr_coeffs, RootsAndCase* p
 
     if (is_zero(ptr_coeffs->a) && is_zero(ptr_coeffs->b) && is_zero(ptr_coeffs->c))
     {
-        logger_output("Solution type chosen: SOLUTION_TYPE_INF_ROOTS\n", LOGGER_PRIORITY_INFO);
+        logger_output(LOGGER_PRIORITY_INFO, "Solution type chosen: SOLUTION_TYPE_INF_ROOTS\n");
         return SOLUTION_TYPE_INF_ROOTS;
     }
     else if (is_zero(ptr_coeffs->a) && is_zero(ptr_coeffs->b))
     {
-        logger_output("Solution type chosen: SOLUTION_TYPE_NO_ROOTS\n", LOGGER_PRIORITY_INFO);
+        logger_output(LOGGER_PRIORITY_INFO, "Solution type chosen: SOLUTION_TYPE_NO_ROOTS\n");
         return SOLUTION_TYPE_NO_ROOTS;
     }
     else if (is_zero(ptr_coeffs->a))
     {
-        logger_output("Solution type chosen: SOLUTION_TYPE_LINEAR_ROOTS; Starting searching root\n",
-            LOGGER_PRIORITY_INFO);
+        logger_output(LOGGER_PRIORITY_INFO, "Solution type chosen: SOLUTION_TYPE_LINEAR_ROOTS; Starting searching root\n");
         return solve_linear_equation(ptr_coeffs, ptr_result);
     }
     else
     {
-        logger_output("It is a quadratic equation; Starting searching root\n",
-            LOGGER_PRIORITY_INFO);
+        logger_output(LOGGER_PRIORITY_INFO, "It is a quadratic equation; Starting searching root\n");
         return solve_quadratic_equation(ptr_coeffs, ptr_result);
     }
 }

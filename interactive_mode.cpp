@@ -23,7 +23,7 @@ void interactive_mode()
 
         if (got_success)
         {
-            logger_output("successfully got coeffs\n", LOGGER_PRIORITY_INFO);
+            logger_output(LOGGER_PRIORITY_INFO, "successfully got coeffs\n");
 
             RootsAndCase result = {0, 0, SOLUTION_TYPE_NONE};
 
@@ -31,13 +31,13 @@ void interactive_mode()
             MY_ASSERT(result.solution_case != SOLUTION_TYPE_NONE);
 
             output_general(result);
-            logger_output("Printed output\n", LOGGER_PRIORITY_INFO);
+            logger_output(LOGGER_PRIORITY_INFO, "Printed output\n");
         }
         else
-            logger_output("User made wrong input\n", LOGGER_PRIORITY_ERROR);
+            logger_output(LOGGER_PRIORITY_ERROR, "User made wrong input\n");
         if (continue_request() == -1)
         {
-            logger_output("User exited the program\n", LOGGER_PRIORITY_INFO);
+            logger_output(LOGGER_PRIORITY_INFO, "User exited the program\n");
             break;
         }
     }

@@ -12,9 +12,9 @@ enum LoggerPriority {
     LOGGER_PRIORITY_NOTHING
 };
 
-void logger_output(const char* show_message, enum LoggerPriority message_priority);
+void logger_output(enum LoggerPriority message_priority, const char *format, ...);
 FILE* logger_init();
-void logger_finish(FILE* file);
+void logger_finish();
 void logger_set_priority(enum LoggerPriority inputed_priority);
 
 

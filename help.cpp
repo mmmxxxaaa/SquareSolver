@@ -8,7 +8,7 @@
 void help()
 {
     system("ncal");
-    logger_output("help(): calender printed\n", LOGGER_PRIORITY_INFO);
+    logger_output(LOGGER_PRIORITY_INFO, "help(): calender printed\n");
 
     printf("parameter help\n");
     printf("--interactive  Sets interactive mode\n");
@@ -24,5 +24,5 @@ void help()
     printf("critical     Sets the first logger priority\n");
     printf("If you do not enter a logger flag, there will be no logger_output\n");
 
-    logger_output("help(): possible argv printed\n", LOGGER_PRIORITY_INFO);
+    logger_output(LOGGER_PRIORITY_INFO, "help(): possible argv printed\n");
 }

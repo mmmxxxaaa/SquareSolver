@@ -13,6 +13,8 @@ void prank();
 **/
 void processing_prank();
 
+void loading_bar_imitation();
+
 void poltoraIIIka(const char *message);
 
 #endif

@@ -1,6 +1,7 @@
 #include "prank.h"
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include "colors_codes.h"
 #include "io.h"
@@ -9,11 +10,13 @@
 #include "my_assert.h"
 #include "logger.h"
 
+/*
 const int thinking_time_long = 4;
 const int thinking_time_short = 2;
 
 static void thinking_silent(time_t thinking_time);
 static void thinking_shout(time_t thinking_time);
+*/
 
 void prank()
 {
@@ -30,14 +33,14 @@ void prank()
 
         if (got_success)
         {
-            logger_output("prank(): starting processing_prank()\n", LOGGER_PRIORITY_INFO);
+            logger_output(LOGGER_PRIORITY_INFO, "prank(): starting processing_prank()\n");
             processing_prank();
             break;
 
         }
         if (continue_request() == -1)
         {
-            logger_output("prank(): wrong input coefficients\n", LOGGER_PRIORITY_ERROR);
+            logger_output(LOGGER_PRIORITY_ERROR, "prank(): wrong input coefficients\n");
             break;
         }
     }
@@ -50,19 +53,21 @@ void processing_prank()
     printf("OK :-) \n");
     printf("starting thinking\n");
 
+/*
     thinking_silent(thinking_time_long);
 
     thinking_shout(thinking_time_short);
 
-    printf("Oh, this task is really hard\n");
-
     thinking_silent(thinking_time_long);
 
     thinking_shout(thinking_time_short);
+*/
+
+    loading_bar_imitation();
 
     printf("The answer is POGLYAD POLTORASHKY\n");
     poltoraIIIka("MEOW");
-    logger_output("printed poltoraIIIka result\n", LOGGER_PRIORITY_INFO);
+    logger_output(LOGGER_PRIORITY_INFO, "printed poltoraIIIka result\n");
 }
 
 void poltoraIIIka(const char *name)
@@ -83,6 +88,7 @@ void poltoraIIIka(const char *name)
     printf(" ");
 }
 
+/*
 void thinking_silent(time_t thinking_time)
 {
     time_t start_time, end_time;
@@ -97,4 +103,29 @@ void thinking_shout(time_t thinking_time)
     time(&start_time);
     while ((time(&end_time) - start_time) < thinking_time)
         printf("thinking\n");
+}
+*/
+
+
+void loading_bar_imitation()
+{
+    printf("▰▱▱▱▱▱▱▱▱▱ 10%%\n");
+    sleep(1);
+    printf("▰▰▱▱▱▱▱▱▱▱ 20%%\n");
+    sleep(1);
+    printf("▰▰▰▱▱▱▱▱▱▱ 30%%\n");
+    sleep(1);
+    printf("▰▰▰▰▱▱▱▱▱▱ 40%%\n");
+    sleep(1);
+    printf("▰▰▰▰▰▱▱▱▱▱ 50%%\n");
+    sleep(1);
+    printf("▰▰▰▰▰▰▱▱▱▱ 60%%\n");
+    sleep(1);
+    printf("▰▰▰▰▰▰▰▱▱▱ 70%%\n");
+    sleep(1);
+    printf("▰▰▰▰▰▰▰▰▱▱ 80%%\n");
+    sleep(1);
+    printf("▰▰▰▰▰▰▰▰▰▱ 90%%\n");
+    sleep(1);
+    printf("▰▰▰▰▰▰▰▰▰▰ 100%%\n");
 }

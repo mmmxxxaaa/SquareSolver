@@ -1,15 +1,19 @@
 #include "logger.h"
 
 #include <stdio.h>
+#include <stdarg.h>
 
-static FILE* log_file = NULL;   //ДЕЛО СДЕЛАНО
+static FILE* log_file = NULL;   //ДЕЛО СДЕЛАНО больше не таскаю logger_type во все функции
 static enum LoggerPriority set_priority = LOGGER_PRIORITY_NOTHING;
 
 
-void logger_output(const char* show_message, enum LoggerPriority message_priority) //vfprintf
+void logger_output(enum LoggerPriority message_priority, const char *format, ...) //ДЕЛО СДЕЛАНО vfprintf
 {
+    va_list args;
+    va_start(args, format);
+
     if (message_priority >= set_priority)
-        fprintf(log_file, "%s", show_message);
+        vfprintf(log_file, format, args);
 }
 
 FILE* logger_init()
@@ -18,9 +22,9 @@ FILE* logger_init()
     return log_file;
 }
 
-void logger_finish(FILE* file)
+void logger_finish()
 {
-    fclose(file);
+    fclose(log_file);
 }
 
 void logger_set_priority(enum LoggerPriority inputed_priority)

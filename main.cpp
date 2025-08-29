@@ -26,7 +26,7 @@ int main(const int argc, char** argv)
     bool test_requested = false;
     bool prank_requested = false;
 
-    FILE* logger_file = logger_init();
+    logger_init();
     logger_set_priority(LOGGER_PRIORITY_NOTHING);
 
     int option_index = 0;
@@ -81,7 +81,7 @@ int main(const int argc, char** argv)
         interactive_mode();
     }
 
-    logger_finish(logger_file);
+    logger_finish();
     return 0;
 }
 
