@@ -97,5 +97,7 @@ enum LoggerPriority str_to_enum(char* ch)
         return LOGGER_PRIORITY_ERROR;
     if (strcmp(ch, "critical") == 0)
         return LOGGER_PRIORITY_CRITICAL;
-    return LOGGER_PRIORITY_NOTHING;
+    if (strcmp(ch, "nothing") == 0)
+        return LOGGER_PRIORITY_NOTHING;
+    return LOGGER_PRIORITY_ERROR;
 }

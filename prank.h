@@ -13,8 +13,16 @@ void prank();
 **/
 void processing_prank();
 
+/**
+    @brief Функция выводит полосу загрузки
+**/
 void loading_bar_imitation();
 
+/**
+    @brief Функция выводит картинку кошки Полторашки, которая что-то говорит :-)
+
+    @param[in] message - указатель на строку, которую произносит Полторашка
+**/
 void poltoraIIIka(const char *message);
 
 #endif

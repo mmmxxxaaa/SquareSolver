@@ -22,7 +22,9 @@ void help()
     printf("warning      Sets the third logger priority\n");
     printf("error        Sets the second logger priority\n");
     printf("critical     Sets the first logger priority\n");
-    printf("If you do not enter a logger flag, there will be no logger_output\n");
+    printf("nothing      There will be no logger_output\n");
+
+    printf("If you do not enter a logger flag, there will be error logging\n");
 
     logger_output(LOGGER_PRIORITY_INFO, "help(): possible argv printed\n");
 }

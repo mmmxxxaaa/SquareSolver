@@ -12,9 +12,31 @@ enum LoggerPriority {
     LOGGER_PRIORITY_NOTHING
 };
 
-void logger_output(enum LoggerPriority message_priority, const char *format, ...);
-FILE* logger_init();
+/**
+*   @brief Функция сравнивает приоритет сообщения с выставленным при запуске приоритетом логгера
+*          и выводит его, если он выше или равен выставленному приоритету
+*
+*   @param[in] message_priority - приоритет выводимого сообщения
+*   @param[in] format - указатель на строку с форматами
+*   @param[in] ... - аргументы для подстановки в строку с форматами
+**/
+void logger_output(enum LoggerPriority message_priority, const char* format, ...);
+
+/**
+*   @brief Функция открывает файл для записи логгеров
+**/
+void logger_init();
+
+/**
+*   @brief Функция закрывает файл для записи логгеров
+**/
 void logger_finish();
+
+/**
+*   @brief Функция устанавливает введённый пользователем приоритет логгеров
+*
+*   @param[in] inputed_priority - введённый пользователем при запуске программы приоритет логгеров
+**/
 void logger_set_priority(enum LoggerPriority inputed_priority);
 
 
