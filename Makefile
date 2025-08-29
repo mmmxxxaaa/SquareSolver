@@ -1,3 +1,11 @@
+SRC_DIR = src
+
+OBJ_DIR = build
+
+SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+
+OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+
 CXX := g++
 CXXFLAGS := -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations \
     -Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts \
@@ -14,18 +22,24 @@ CXXFLAGS := -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-
     -Wlarger-than=8192 -Wstack-usage=8192 -pie -fPIE -Werror=vla \
     -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
 
-SRC_FILES := main.cpp io.cpp equation_solver.cpp logic_functions.cpp my_assert.cpp \
+#SRC_FILES := main.cpp io.cpp equation_solver.cpp logic_functions.cpp my_assert.cpp \
 	logic_functions_test.cpp equation_solver_test.cpp global_test.cpp interactive_mode.cpp \
     help.cpp prank.cpp logger.cpp
-OBJ_FILES := $(SRC_FILES:.cpp=.o)
+#OBJ_FILES := $(SRC_FILES:.cpp=.o)
 
 all: SquareSolver
 
-SquareSolver: $(OBJ_FILES)
+SquareSolver: $(OBJECTS)
 	@$(CXX) $(CXXFLAGS) -o $@ $^
 
-%.o: %.cpp
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(OBJ_DIR):
+	mkdir -p $@
 
 clean:
-	rm -f $(OBJ_FILES) my_program
+	rm -rf $(OBJ_DIR) SquareSolver
+
+
+# //FIXME куда ставить @, чтобы не видеть, что делает мейк
