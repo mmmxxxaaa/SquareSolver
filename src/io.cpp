@@ -1,11 +1,11 @@
-#include "../include/io.h"
+#include "io.h"
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 
-#include "../include/colors_codes.h"
-#include "../include/my_assert.h"
+#include "colors_codes.h"
+#include "my_assert.h"
 
 
 bool get_coeffs(QuadricCoeffs* ptr_coeffs)

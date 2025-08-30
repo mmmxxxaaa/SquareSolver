@@ -4,30 +4,35 @@
 #include <getopt.h>
 #include <string.h>
 
-#include "../include/io.h"
-#include "../include/equation_solver.h"
-#include "../include/colors_codes.h"
-#include "../include/my_static_assert.h"
-#include "../include/my_assert.h"
+#include "io.h"
+#include "equation_solver.h"
+#include "colors_codes.h"
+#include "errors_codes.h"
+#include "my_static_assert.h"
+#include "my_assert.h"
 
-#include "../include/global_test.h"
-#include "../include/interactive_mode.h"
-#include "../include/help.h"
-#include "../include/prank.h"
+#include "global_test.h"
+#include "interactive_mode.h"
+#include "help.h"
+#include "prank.h"
+#include "logger.h"
 
-#include "../include/logger.h"
+typedef struct {
+    bool help_requested;
+    bool interactive_requested;
+    bool test_requested;
+    bool prank_requested;
+} RequestedFlags;
+
 
 enum LoggerPriority str_to_enum(char* ch);
 
 int main(const int argc, char** argv)
 {
-    bool help_requested = false;
-    bool interactive_requested = false;
-    bool test_requested = false;
-    bool prank_requested = false;
+    enum ErrorsCodes error_in_file = logger_init("./logger/logger.txt");
+    MY_ASSERT(error_in_file == NO_ERROR);
 
-    logger_init();
-    logger_set_priority(LOGGER_PRIORITY_NOTHING);
+    RequestedFlags requests = {false, false, false, false};
 
     int option_index = 0;
     static struct option long_options[] = {
@@ -44,16 +49,16 @@ int main(const int argc, char** argv)
     {
         switch (option_symbol) {
             case 'h':
-                help_requested = true;
+                requests.help_requested = true;
                 break;
             case 'i':
-                interactive_requested = true;
+                requests.interactive_requested = true;
                 break;
             case 't':
-                test_requested = true;
+                requests.test_requested = true;
                 break;
             case 'p':
-                prank_requested = true;
+                requests.prank_requested = true;
                 break;
             case 'l':
                 logger_set_priority(str_to_enum(optarg));
@@ -65,23 +70,23 @@ int main(const int argc, char** argv)
         }
     }
 
-    if (help_requested) {
+    if (requests.help_requested)
         help();
-    }
 
-    if (test_requested) {
+    if (requests.test_requested)
         global_test();
-    }
 
-    if (prank_requested) {
+    if (requests.prank_requested)
         prank();
-    }
 
-    if (interactive_requested || (!help_requested && !test_requested && !prank_requested)) {
+    if (requests.interactive_requested ||
+        (!requests.help_requested && !requests.test_requested && !requests.prank_requested))
         interactive_mode();
-    }
 
-    logger_finish();
+
+    error_in_file = logger_finish();
+    MY_ASSERT(error_in_file == NO_ERROR);
+
     return 0;
 }
 

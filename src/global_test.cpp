@@ -1,14 +1,14 @@
-#include "../include/global_test.h"
+#include "global_test.h"
 
 #include <math.h>
 #include <stdio.h>
 
-#include "../include/logic_functions_test.h"
-#include "../include/equation_solver_test.h"
-#include "../include/colors_codes.h"
+#include "logic_functions_test.h"
+#include "equation_solver_test.h"
+#include "colors_codes.h"
 
-#include "../include/equation_solver.h"
-#include "../include/logger.h"
+#include "equation_solver.h"
+#include "logger.h"
 
 void global_test()
 {

@@ -1,11 +1,11 @@
-#include "../include/equation_solver.h"
+#include "equation_solver.h"
 
 #include <math.h>
 #include <stdio.h>
 
-#include "../include/my_assert.h"
-#include "../include/logger.h"
-#include "../include/logic_functions.h"
+#include "my_assert.h"
+#include "logger.h"
+#include "logic_functions.h"
 
 /**
     @brief Функция отвечает за нахождение дискриминанта квадратного уравнения

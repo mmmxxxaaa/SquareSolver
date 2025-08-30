@@ -1,11 +1,11 @@
-#include "../include/equation_solver_test.h" //FIXME почему две точки? откуда запускается программа и спускается в папки и собирает проект?
+#include "equation_solver_test.h"
 
 #include <stdio.h>
 
-#include "../include/equation_solver.h"
-#include "../include/logic_functions.h"
-#include "../include/my_assert.h"
-#include "../include/colors_codes.h"
+#include "equation_solver.h"
+#include "logic_functions.h"
+#include "my_assert.h"
+#include "colors_codes.h"
 
 int test_solve_general(QuadricCoeffs coeffs, RootsAndCase expected_result)
 {

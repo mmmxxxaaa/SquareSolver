@@ -1,12 +1,12 @@
-#include "../include/interactive_mode.h"
+#include "interactive_mode.h"
 
 #include <stdio.h>
 
-#include "../include/my_static_assert.h"
-#include "../include/io.h"
-#include "../include/equation_solver.h"
-#include "../include/colors_codes.h"
-#include "../include/my_assert.h"
+#include "my_static_assert.h"
+#include "io.h"
+#include "equation_solver.h"
+#include "colors_codes.h"
+#include "my_assert.h"
 
 void interactive_mode()
 {

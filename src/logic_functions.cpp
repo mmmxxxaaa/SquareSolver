@@ -1,10 +1,10 @@
-#include "../include/logic_functions.h"
+#include "logic_functions.h"
 
 #include <stdbool.h>
 #include <math.h>
 #include <float.h>
 
-#include "../include/my_assert.h"
+#include "my_assert.h"
 
 bool is_zero(float number)
 {

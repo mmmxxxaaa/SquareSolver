@@ -1,14 +1,14 @@
-#include "../include/prank.h"
+#include "prank.h"
 
 #include <stdio.h>
 #include <unistd.h>
 //#include <time.h>
 
-#include "../include/colors_codes.h"
-#include "../include/io.h"
-#include "../include/equation_solver.h"
-#include "../include/my_assert.h"
-#include "../include/logger.h"
+#include "colors_codes.h"
+#include "io.h"
+#include "equation_solver.h"
+#include "my_assert.h"
+#include "logger.h"
 
 /*
 const int thinking_time_long = 4;

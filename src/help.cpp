@@ -1,9 +1,9 @@
-#include "../include/help.h"
+#include "help.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/logger.h"
+#include "logger.h"
 
 void help()
 {

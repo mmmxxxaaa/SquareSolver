@@ -2,6 +2,7 @@
 #define MY_LOGGER_H_
 
 #include <stdio.h>
+#include "errors_codes.h"
 
 enum LoggerPriority {
     LOGGER_PRIORITY_DEBUG,
@@ -25,12 +26,12 @@ void logger_output(enum LoggerPriority message_priority, const char* format, ...
 /**
 *   @brief Функция открывает файл для записи логгеров
 **/
-void logger_init();
+enum ErrorsCodes logger_init(const char* filename);
 
 /**
 *   @brief Функция закрывает файл для записи логгеров
 **/
-void logger_finish();
+enum ErrorsCodes logger_finish();
 
 /**
 *   @brief Функция устанавливает введённый пользователем приоритет логгеров

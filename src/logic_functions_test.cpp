@@ -1,9 +1,9 @@
-#include "../include/logic_functions_test.h"
+#include "logic_functions_test.h"
 
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "../include/logic_functions.h"
+#include "logic_functions.h"
 
 int test_is_zero(float number, bool expecting_value)
 {

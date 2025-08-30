@@ -1,17 +1,18 @@
-#include "../include/logger.h"
+#include "logger.h"
 
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "../include/colors_codes.h"
+#include "colors_codes.h"
+#include "errors_codes.h"
 
 static FILE* log_file = NULL;
-static enum LoggerPriority set_priority = LOGGER_PRIORITY_ERROR;
+static enum LoggerPriority global_priority = LOGGER_PRIORITY_ERROR;
 
 
 void logger_output(enum LoggerPriority message_priority, const char *format, ...)
 {
-    if (message_priority < set_priority)
+    if (message_priority < global_priority)
         return;
 
     va_list args = {};
@@ -21,21 +22,27 @@ void logger_output(enum LoggerPriority message_priority, const char *format, ...
     va_end(args);
 }
 
-void logger_init()
+
+//FIXME и начать писать строковые функции (свои вместо стандартных)
+enum ErrorsCodes logger_init(const char* filename) // ДЕЛО СДЕЛАНО принимать имя файла
 {
-    log_file = fopen("./logger/logger.txt", "a");
+    log_file = fopen(filename, "a");
+
     if (log_file == NULL)
-    {
-        printf(RED "Cannot open the \"logger.txt\" file" RESET);
-    }
+        return ERROR_OPENING_FILE;
+    return NO_ERROR;
 }
 
-void logger_finish()
+enum ErrorsCodes logger_finish()
 {
+    if (log_file == NULL)
+        return ERROR_CLOSING_FILE;
+
     fclose(log_file);
+    return NO_ERROR;
 }
 
 void logger_set_priority(enum LoggerPriority inputed_priority)
 {
-    set_priority = inputed_priority;
+    global_priority = inputed_priority;
 }
