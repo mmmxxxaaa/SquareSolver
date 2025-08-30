@@ -5,7 +5,7 @@ OBJ_DIR = build
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-
+# //FIXME  -I flag
 CXX := g++
 CXXFLAGS := -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations \
     -Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts \
@@ -33,13 +33,13 @@ SquareSolver: $(OBJECTS)
 	@$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
-	mkdir -p $@
+	@mkdir -p $@
 
 clean:
-	rm -rf $(OBJ_DIR) SquareSolver
+	@rm -rf $(OBJ_DIR) SquareSolver
 
 
-# //FIXME куда ставить @, чтобы не видеть, что делает мейк
+# //ДЕЛО СДЕЛАНО куда ставить @, чтобы не видеть, что делает мейк

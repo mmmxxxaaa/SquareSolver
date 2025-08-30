@@ -104,11 +104,11 @@ void global_test()
 
 int run_tests_from_file(int* success_tests, int* all_tests)
 {
-    FILE *file = fopen("../tests/tests.txt", "r");
+    FILE *file = fopen("./tests/tests.txt", "r");
 
     if (file == NULL)
     {
-        logger_output(LOGGER_PRIORITY_CRITICAL, "run_tests_from_file(): Cannot open the file\n"); //FIXME 2 раза выводится (тут и где !is_opened)
+        logger_output(LOGGER_PRIORITY_CRITICAL, "run_tests_from_file(): Cannot open the file\n");
         return 0;
     }
 

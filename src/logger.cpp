@@ -3,14 +3,14 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-static FILE* log_file = NULL;   //ДЕЛО СДЕЛАНО больше не таскаю logger_type во все функции
+#include "../include/colors_codes.h"
+
+static FILE* log_file = NULL;
 static enum LoggerPriority set_priority = LOGGER_PRIORITY_ERROR;
 
 
-void logger_output(enum LoggerPriority message_priority, const char *format, ...) //ДЕЛО СДЕЛАНО vfprintf
+void logger_output(enum LoggerPriority message_priority, const char *format, ...)
 {
-
-
     if (message_priority < set_priority)
         return;
 
@@ -20,11 +20,14 @@ void logger_output(enum LoggerPriority message_priority, const char *format, ...
     vfprintf(log_file, format, args);
     va_end(args);
 }
-//FIXME поменять названия у папки с заголовочными файлами
-//FIXME вытащить мэйкфайл и переделать его, чтобы он залезал в папку к срр и собирал их (прописать пути)
+
 void logger_init()
 {
     log_file = fopen("./logger/logger.txt", "a");
+    if (log_file == NULL)
+    {
+        printf(RED "Cannot open the \"logger.txt\" file" RESET);
+    }
 }
 
 void logger_finish()
